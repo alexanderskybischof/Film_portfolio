@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Film_portfolio/static/css/main.75806a5b.css",
+    "main.js": "/Film_portfolio/static/js/main.0a00fa0a.js",
+    "static/js/453.ececc0a5.chunk.js": "/Film_portfolio/static/js/453.ececc0a5.chunk.js",
+    "index.html": "/Film_portfolio/index.html",
+    "main.75806a5b.css.map": "/Film_portfolio/static/css/main.75806a5b.css.map",
+    "main.0a00fa0a.js.map": "/Film_portfolio/static/js/main.0a00fa0a.js.map",
+    "453.ececc0a5.chunk.js.map": "/Film_portfolio/static/js/453.ececc0a5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.75806a5b.css",
+    "static/js/main.0a00fa0a.js"
+  ]
+}
