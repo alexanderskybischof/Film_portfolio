@@ -19,48 +19,48 @@ type WorkItem = {
 
 const workItems: WorkItem[] = [
   {
-    title: 'Midori Sessions',
-    roles: ['Shot', 'Edited'],
+    title: '',
+    roles: [''],
     youtubeId: 'P5pREr7TDWw',
   },
   {
-    title: 'City Echoes',
-    roles: ['DP', 'Color'],
+    title: '',
+    roles: [''],
     youtubeId: 'LUbVYsNQ7yE',
   },
   {
-    title: 'Kansai Nights',
-    roles: ['DP', 'Color'],
+    title: '',
+    roles: [''],
     youtubeId: 'nppfCznkF3E',
   },
   {
-    title: 'Harbor Drift I',
-    roles: ['Shot', 'Edited'],
+    title: '',
+    roles: [''],
     instagramUrl: 'https://www.instagram.com/p/DLS2DdKiqWH/embed',
   },
   {
-    title: 'Harbor Drift II',
-    roles: ['Shot', 'Edited'],
+    title: '',
+    roles: [''],
     instagramUrl: 'https://www.instagram.com/reel/DDYmsHhsbYx/embed',
   },
   {
-    title: 'Harbor Drift III',
-    roles: ['Shot', 'Edited'],
+    title: '',
+    roles: [''],
     instagramUrl: 'https://www.instagram.com/reel/DPCghubgoKt/embed',
   },
   {
-    title: 'Harbor Drift IV',
-    roles: ['Shot', 'Edited'],
+    title: '',
+    roles: [''],
     instagramUrl: 'https://www.instagram.com/reel/DPCg2Bigtuc/embed',
   },
   {
-    title: 'Harbor Drift V',
-    roles: ['Shot', 'Edited'],
+    title: '',
+    roles: [''],
     instagramUrl: 'https://www.instagram.com/reel/DPCf-q-glfK/embed',
   },
   {
-    title: 'Harbor Drift VI',
-    roles: ['Shot', 'Edited'],
+    title: '',
+    roles: [''],
     instagramUrl: 'https://www.instagram.com/p/DPCpx-LjSEJ/embed',
   },
 ];

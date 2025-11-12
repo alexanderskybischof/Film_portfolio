@@ -40,11 +40,9 @@ const Home: React.FC = () => {
           <div className="info-content" ref={infoContentRef}>
             <h2>ALEXANDER SKY</h2>
             <p>
-              20 yr. old filmmaker based in Berkeley, CA, Boston, MA, and Osaka, Japan. I shoot most of my
-              content on an A7SIII, Fuji X-S10, Nikon F3-HP, and my mom&apos;s old camcorder. My life goal is
-              to create a video production company specializing in ocean and nature-related content, based in
-              cities across Japan, France, and the United States. After I retire, I want to surf, hike, and
-              make cool gadgets in a country that doesn&apos;t get cold.
+              I'm a 20 yr. old freelance filmmaker based in Berkeley, CA, Boston, MA, and Osaka, Japan. I shoot most of my
+              content on a Sony a7S III, Fuji X-S10, Nikon F3-HP, and my mom&apos;s old camcorder. In my freetime I work on personal projects and enjoy the outdoors in preferably warm weather - whether that's through surfing, climbing, hiking, etc...
+              I currently attend Boston University, where after I hope to create a video production company or get a job related to Data Science.
             </p>
           </div>
 
