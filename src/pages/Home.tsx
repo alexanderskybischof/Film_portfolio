@@ -38,11 +38,11 @@ const Home: React.FC = () => {
       <section className="info-section" id="about">
         <div className="bio-container">
           <div className="info-content" ref={infoContentRef}>
-            <h2>ALEXANDER SKY</h2>
+            <h2>ALEXANDER SKY BISCHOF</h2>
             <p>
-              I'm a 20 yr. old freelance filmmaker based in Berkeley, CA, Boston, MA, and Osaka, Japan. I shoot most of my
-              content on a Sony a7S III, Fuji X-S10, Nikon F3-HP, and my mom&apos;s old camcorder. In my freetime I work on personal projects and enjoy the outdoors in preferably warm weather - whether that's through surfing, climbing, hiking, etc...
-              I currently attend Boston University, where after I hope to create a video production company or get a job related to Data Science.
+              Alex is a 20 yr. old freelance filmmaker based in Berkeley, CA, Boston, MA, and Osaka, Japan. He shoot most of his
+              content on a Sony a7S III, Fuji X-S10, Nikon F3-HP, and his mom&apos;s old camcorder. In his freetime he works on personal projects and enjoy the outdoors in preferably warm weather - whether that's through surfing, climbing, hiking, etc...
+              He currently attends Boston University, where after hopes to create a video production company or get a job related to Data Science.
             </p>
           </div>
 
