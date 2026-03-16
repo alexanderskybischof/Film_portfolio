@@ -5,7 +5,7 @@ const Contact: React.FC = () => {
     <main className="page page--contact">
       <div className="page-content contact-content">
         <h1>Contact</h1>
-        <p>skybischof@gmail.com</p>
+        <p>alex@stomii.com</p>
 
         <footer className="footer">
           <a

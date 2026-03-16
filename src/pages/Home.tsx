@@ -1,56 +1,44 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const infoContentRef = useRef<HTMLDivElement | null>(null);
-  const infoImageRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const targets: (Element | null)[] = [infoContentRef.current, infoImageRef.current];
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    targets.forEach((target) => target && observer.observe(target));
-
-    return () => observer.disconnect();
-  }, []);
+  const assetPrefix = process.env.PUBLIC_URL || '';
+  const reelEmbedUrl = 'https://player.vimeo.com/video/1173915010';
 
   return (
     <>
       <header className="hero-section" id="home">
-        <video className="background-video" autoPlay loop muted>
-          <source src="/gontitivid.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div className="hero-text">
-          <img src="/AlexSkySignature.png" alt="Alexander Sky Logo middle" />
+        <div className="hero-layout">
+          <div className="hero-text">
+            <p className="hero-kicker">DIRECTOR · CINEMATOGRAPHER · EDITOR</p>
+            <img src={`${assetPrefix}/Alex.jpeg`} alt="Alexander Sky portrait" className="hero-portrait" />
+            <p className="hero-description">
+              Documentary and Commercial filmmaking located between Sydney, Berkeley, Boston, and Osaka.
+            </p>
+            <div className="hero-actions">
+              <Link to="/work" className="hero-action hero-action--primary">
+                View Work
+              </Link>
+              <Link to="/contact" className="hero-action">
+                Contact
+              </Link>
+            </div>
+          </div>
+
+          <div className="hero-media">
+            <div className="hero-video-frame">
+              <iframe
+                className="hero-video"
+                src={reelEmbedUrl}
+                title="Featured reel"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <p className="hero-caption">Featured reel. Press Play to start.</p>
+          </div>
         </div>
       </header>
-
-      <section className="info-section" id="about">
-        <div className="bio-container">
-          <div className="info-content" ref={infoContentRef}>
-            <h2>ALEXANDER SKY BISCHOF</h2>
-            <p>
-              Alex is a 20 yr. old freelance filmmaker based in Berkeley, CA, Boston, MA, and Osaka, Japan. He shoot most of his
-              content on a Sony a7S III, Fuji X-S10, Nikon F3-HP, and his mom&apos;s old camcorder. In his freetime he works on personal projects and enjoy the outdoors in preferably warm weather - whether that's through surfing, climbing, hiking, etc...
-              He currently attends Boston University, where after hopes to create a video production company or get a job related to Data Science.
-            </p>
-          </div>
-
-          <div className="info-image" ref={infoImageRef}>
-            <img src="/Alex.jpeg" alt="Alexander Sky portrait" />
-          </div>
-        </div>
-      </section>
 
       <footer className="footer">
         <a
