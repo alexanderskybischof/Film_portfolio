@@ -16,6 +16,10 @@ const WorkCategory: React.FC = () => {
     return <Navigate to="/work" replace />;
   }
 
+  if (category.slug === 'personal') {
+    return <Navigate to="/work/personal" replace />;
+  }
+
   return (
     <main className="page page--work">
       <div className="page-content page-content--work">
@@ -37,7 +41,11 @@ const WorkCategory: React.FC = () => {
                 <h2 className="work-row__title">{project.title}</h2>
               </div>
               <div className="work-row__media">
-                {project.thumbnail.type === 'video' ? (
+                {!project.thumbnail.src ? (
+                  <div className="work-row__placeholder" aria-label={project.thumbnail.alt}>
+                    Media Coming Soon
+                  </div>
+                ) : project.thumbnail.type === 'video' ? (
                   <video
                     src={project.thumbnail.src}
                     muted
@@ -48,7 +56,16 @@ const WorkCategory: React.FC = () => {
                     aria-label={project.thumbnail.alt}
                   />
                 ) : (
-                  <img src={project.thumbnail.src} alt={project.thumbnail.alt} loading="lazy" />
+                  <img
+                    src={project.thumbnail.src}
+                    alt={project.thumbnail.alt}
+                    loading="lazy"
+                    style={
+                      project.thumbnail.objectPosition
+                        ? { objectPosition: project.thumbnail.objectPosition }
+                        : undefined
+                    }
+                  />
                 )}
               </div>
             </Link>

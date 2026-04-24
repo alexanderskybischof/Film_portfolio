@@ -1,4 +1,4 @@
-export type WorkCategoryKey = 'reel' | 'commercial-work' | 'short-films';
+export type WorkCategoryKey = 'reel' | 'commercial-work' | 'short-films' | 'personal';
 
 export type WorkProject = {
   slug: string;
@@ -7,14 +7,21 @@ export type WorkProject = {
   videoType: 'youtube' | 'local';
   videoUrl: string;
   secondaryVideoUrl?: string;
+  videos?: Array<{
+    title: string;
+    videoType: 'youtube' | 'local';
+    videoUrl?: string;
+  }>;
   thumbnail: {
-    src: string;
+    src?: string;
     alt: string;
     type: 'image' | 'video';
+    objectPosition?: string;
   };
   stillFrames: Array<{
-    src: string;
+    src?: string;
     alt: string;
+    label?: string;
     solidBackground?: boolean;
   }>;
 };
@@ -22,7 +29,7 @@ export type WorkProject = {
 export type WorkCategory = {
   slug: WorkCategoryKey;
   title: string;
-  cardImage: string;
+  cardImage?: string;
   cardImageAlt: string;
   cardImageType?: 'image' | 'video';
   description?: string;
@@ -78,6 +85,82 @@ export const workCategories: WorkCategory[] = [
             alt: 'Hoka Spec Ad still frame 4',
           },
         ],
+      },
+      {
+        slug: 'kuro-kahii-sydney',
+        title: 'Kuro Bar & Dining',
+        description:
+          'The following videos are part of a series of five promotional pieces created for Kuro Bar & Dining. They were designed for use in live venue advertising, with a focus on capturing the atmosphere and visual appeal of the space.',
+        videoType: 'local',
+        videoUrl: '',
+        videos: [
+          { title: 'Short Video 1', videoType: 'local', videoUrl: `${assetPrefix}/kuro1.2.mov` },
+          { title: 'Short Video 2', videoType: 'local', videoUrl: `${assetPrefix}/kuro2.2.mov` },
+          { title: 'Short Video 3', videoType: 'local', videoUrl: `${assetPrefix}/kuro3.mov` },
+          { title: 'Short Video 4', videoType: 'local', videoUrl: `${assetPrefix}/kuro4.mov` },
+          { title: 'Short Video 5', videoType: 'local', videoUrl: `${assetPrefix}/kuro5.mov` },
+        ],
+        thumbnail: {
+          src: `${assetPrefix}/kurostill_2.1.1.jpg`,
+          alt: 'Kuro Bar & Dining preview',
+          type: 'image',
+          objectPosition: 'center 97%',
+        },
+        stillFrames: [
+          {
+            src: `${assetPrefix}/Kuro1.jpg`,
+            alt: 'Kuro Bar & Dining photo 1',
+          },
+          {
+            src: `${assetPrefix}/Kuro2.jpg`,
+            alt: 'Kuro Bar & Dining photo 2',
+          },
+          {
+            src: `${assetPrefix}/Kuro3.jpg`,
+            alt: 'Kuro Bar & Dining photo 3',
+          },
+          {
+            src: `${assetPrefix}/Kuro4.jpg`,
+            alt: 'Kuro Bar & Dining photo 4',
+          },
+          {
+            src: `${assetPrefix}/Kuro4.5.jpg`,
+            alt: 'Kuro Bar & Dining photo 5',
+          },
+          {
+            src: `${assetPrefix}/Kuro5.jpg`,
+            alt: 'Kuro Bar & Dining photo 6',
+          },
+          {
+            src: `${assetPrefix}/Kuro6.jpg`,
+            alt: 'Kuro Bar & Dining photo 7',
+          },
+          {
+            src: `${assetPrefix}/Kuro7.jpg`,
+            alt: 'Kuro Bar & Dining photo 8',
+          },
+          {
+            src: `${assetPrefix}/Kuro8.jpg`,
+            alt: 'Kuro Bar & Dining photo 9',
+          },
+        ],
+      },
+      {
+        slug: 'kahii',
+        title: 'Kahii',
+        description: "Short Videos produced for Kahii's social media accounts",
+        videoType: 'local',
+        videoUrl: '',
+        videos: [
+          { title: 'Short Video 1', videoType: 'youtube', videoUrl: 'https://youtu.be/KXBljh_hEgc' },
+          { title: 'Short Video 2', videoType: 'local', videoUrl: `${assetPrefix}/kahii2.mov` },
+        ],
+        thumbnail: {
+          src: `${assetPrefix}/kahiistill.jpg`,
+          alt: 'Kahii preview',
+          type: 'image',
+        },
+        stillFrames: [],
       },
       {
         slug: 'bu-debate',
@@ -142,6 +225,25 @@ export const workCategories: WorkCategory[] = [
             alt: 'Hungry Drudge still frame 4',
           },
         ],
+      },
+    ],
+  },
+  {
+    slug: 'personal',
+    title: 'Personal',
+    cardImageAlt: 'Personal work preview',
+    projects: [
+      {
+        slug: 'personal',
+        title: 'Personal',
+        description: 'Media coming soon',
+        videoType: 'local',
+        videoUrl: '',
+        thumbnail: {
+          alt: 'Personal preview',
+          type: 'image',
+        },
+        stillFrames: [],
       },
     ],
   },

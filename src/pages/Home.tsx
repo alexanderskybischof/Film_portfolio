@@ -13,7 +13,7 @@ const Home: React.FC = () => {
             <p className="hero-kicker">DIRECTOR · CINEMATOGRAPHER · EDITOR</p>
             <img src={`${assetPrefix}/Alex.jpeg`} alt="Alexander Sky portrait" className="hero-portrait" />
             <p className="hero-description">
-              Documentary and Commercial filmmaking located between Sydney, Berkeley, Boston, and Osaka.
+              Freelance Filmmaker currently located in Sydney, Australia. Comfortable shooting for documentaries, commercials, music videos, short films, social media, and more.
             </p>
             <div className="hero-actions">
               <Link to="/work" className="hero-action hero-action--primary">

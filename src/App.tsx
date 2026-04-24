@@ -38,6 +38,10 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/work" element={<Work />} />
             <Route path="/work/reel" element={<Reel />} />
+            <Route
+              path="/work/personal"
+              element={<ProjectDetail fixedCategorySlug="personal" fixedProjectSlug="personal" />}
+            />
             <Route path="/work/:categorySlug" element={<WorkCategory />} />
             <Route path="/work/:categorySlug/:projectSlug" element={<ProjectDetail />} />
             <Route path="/contact" element={<Contact />} />

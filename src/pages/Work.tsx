@@ -19,13 +19,23 @@ const Work: React.FC = () => {
             <Link
               className="work-category-card"
               key={category.slug}
-              to={category.slug === 'reel' ? '/work/reel' : `/work/${category.slug}`}
+              to={
+                category.slug === 'reel'
+                  ? '/work/reel'
+                  : category.slug === 'personal'
+                    ? '/work/personal'
+                    : `/work/${category.slug}`
+              }
             >
               <div className="work-category-card__label">
                 <h2 className="work-category-card__title">{category.title}</h2>
               </div>
               <div className="work-category-card__media">
-                {category.cardImageType === 'video' ? (
+                {!category.cardImage ? (
+                  <div className="work-row__placeholder" aria-label={category.cardImageAlt}>
+                    Media Coming Soon
+                  </div>
+                ) : category.cardImageType === 'video' ? (
                   <video
                     src={category.cardImage}
                     muted
