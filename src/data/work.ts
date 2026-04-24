@@ -94,11 +94,11 @@ export const workCategories: WorkCategory[] = [
         videoType: 'local',
         videoUrl: '',
         videos: [
-          { title: 'Short Video 1', videoType: 'local', videoUrl: `${assetPrefix}/kuro1.2.mov` },
-          { title: 'Short Video 2', videoType: 'local', videoUrl: `${assetPrefix}/kuro2.2.mov` },
-          { title: 'Short Video 3', videoType: 'local', videoUrl: `${assetPrefix}/kuro3.mov` },
-          { title: 'Short Video 4', videoType: 'local', videoUrl: `${assetPrefix}/kuro4.mov` },
-          { title: 'Short Video 5', videoType: 'local', videoUrl: `${assetPrefix}/kuro5.mov` },
+          { title: 'Short Video 1', videoType: 'youtube', videoUrl: 'https://youtu.be/m3VC7YkEhAo' },
+          { title: 'Short Video 2', videoType: 'youtube', videoUrl: 'https://youtu.be/tvUu-WB8w8U' },
+          { title: 'Short Video 3', videoType: 'youtube', videoUrl: 'https://youtu.be/8Y9W5-dlf4M' },
+          { title: 'Short Video 4', videoType: 'youtube', videoUrl: 'https://youtu.be/TFmQyV8exds' },
+          { title: 'Short Video 5', videoType: 'youtube', videoUrl: 'https://youtu.be/INj0UrsEhxk' },
         ],
         thumbnail: {
           src: `${assetPrefix}/kurostill_2.1.1.jpg`,
