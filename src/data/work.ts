@@ -153,7 +153,7 @@ export const workCategories: WorkCategory[] = [
         videoUrl: '',
         videos: [
           { title: 'Short Video 1', videoType: 'youtube', videoUrl: 'https://youtu.be/KXBljh_hEgc' },
-          { title: 'Short Video 2', videoType: 'local', videoUrl: `${assetPrefix}/kahii2.mov` },
+          { title: 'Short Video 2', videoType: 'youtube', videoUrl: 'https://youtube.com/shorts/6nZLt6vMZhI?feature=share' },
         ],
         thumbnail: {
           src: `${assetPrefix}/kahiistill.jpg`,
