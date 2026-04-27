@@ -569,6 +569,10 @@ html,
   width: min(100%, 860px);
 }
 
+.project-detail__video-grid--single-compact {
+  width: min(100%, 980px);
+}
+
 .project-detail__video-frame {
   width: 100%;
   aspect-ratio: 16 / 9;

@@ -16,10 +16,6 @@ const WorkCategory: React.FC = () => {
     return <Navigate to="/work" replace />;
   }
 
-  if (category.slug === 'personal') {
-    return <Navigate to="/work/personal" replace />;
-  }
-
   return (
     <main className="page page--work">
       <div className="page-content page-content--work">

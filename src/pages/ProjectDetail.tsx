@@ -87,9 +87,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
         ]
       : [];
   const hasSingleVideo = videoItems.length === 1;
+  const isPersonalProject = category.slug === 'personal';
+  const displayTitle = isPersonalProject ? category.title : project.title;
+  const useCompactSingleVideo = isPersonalProject && hasSingleVideo;
   const shouldCenterLastVideo = videoItems.length > 1 && videoItems.length % 2 === 1;
   const activeFrame = activeFrameIndex !== null ? galleryFrames[activeFrameIndex] : null;
-  const backLinkTo = category.slug === 'personal' ? '/work' : `/work/${category.slug}`;
+  const backLinkTo = isPersonalProject ? '/work' : `/work/${category.slug}`;
   const descriptionClassName = `project-detail__description work-fade visible${videoItems.length ? '' : ' project-detail__description--plain'}`;
 
   return (
@@ -99,7 +102,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
           <Link to={backLinkTo} className="project-detail__back-link">
             Back to Work
           </Link>
-          <h1>{project.title}</h1>
+          <h1>{displayTitle}</h1>
         </div>
 
         {project.description && videoItems.length ? (
@@ -110,10 +113,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
 
         {videoItems.length ? (
           <section className="project-detail__video work-fade visible">
-            <div className={`project-detail__video-grid${hasSingleVideo ? ' project-detail__video-grid--single' : ''}`}>
+            <div
+              className={`project-detail__video-grid${hasSingleVideo ? ' project-detail__video-grid--single' : ''}${useCompactSingleVideo ? ' project-detail__video-grid--single-compact' : ''}`}
+            >
               {videoItems.map((video, index) => (
                 <div
-                  className={`project-detail__video-frame${shouldCenterLastVideo && index === videoItems.length - 1 ? ' project-detail__video-frame--centered' : ''}`}
+                  className={`project-detail__video-frame${(shouldCenterLastVideo && index === videoItems.length - 1) || useCompactSingleVideo ? ' project-detail__video-frame--centered' : ''}`}
                   key={video.title}
                 >
                   {video.videoType === 'youtube' ? (

@@ -184,19 +184,6 @@ export const workCategories: WorkCategory[] = [
     cardImageAlt: 'Short films preview',
     projects: [
       {
-        slug: 'crossing-japan',
-        title: 'Crossing Japan',
-        description: '',
-        videoType: 'youtube',
-        videoUrl: 'https://www.youtube.com/watch?v=K52ULfZdbqI&t=86s',
-        thumbnail: {
-          src: `${assetPrefix}/crossingjapan.png`,
-          alt: 'Rel short film preview',
-          type: 'image',
-        },
-        stillFrames: [],
-      },
-      {
         slug: 'hungry-drudge',
         title: 'Hungry Drudge',
         description: '',
@@ -231,16 +218,18 @@ export const workCategories: WorkCategory[] = [
   {
     slug: 'personal',
     title: 'Personal',
+    cardImage: `${assetPrefix}/crossingjapan.png`,
     cardImageAlt: 'Personal work preview',
     projects: [
       {
-        slug: 'personal',
-        title: 'Personal',
-        description: 'Media coming soon',
-        videoType: 'local',
-        videoUrl: '',
+        slug: 'crossing-japan',
+        title: 'Crossing Japan',
+        description: '',
+        videoType: 'youtube',
+        videoUrl: 'https://www.youtube.com/watch?v=K52ULfZdbqI&t=86s',
         thumbnail: {
-          alt: 'Personal preview',
+          src: `${assetPrefix}/crossingjapan.png`,
+          alt: 'Crossing Japan preview',
           type: 'image',
         },
         stillFrames: [],
