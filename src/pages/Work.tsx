@@ -15,8 +15,6 @@ const Work: React.FC = () => {
   return (
     <main className="page page--work">
       <div className="page-content page-content--work">
-        <h1 className="work-fade">{language === 'ja' ? '作品' : 'Work'}</h1>
-
         <section className="work-categories work-fade">
           {workCategories.map((category) => (
             <Link
