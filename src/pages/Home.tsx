@@ -1,25 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SiteFooter from '../components/SiteFooter';
+import { useLanguage } from '../i18n';
 
 const Home: React.FC = () => {
   const assetPrefix = process.env.PUBLIC_URL || '';
   const reelEmbedUrl = 'https://player.vimeo.com/video/1173915010';
+  const { language } = useLanguage();
+  const copy =
+    language === 'ja'
+      ? {
+          portraitAlt: 'アレクサンダー・スカイのポートレート',
+          description:
+            'シドニーを拠点に活動するフリーランスの映像作家。カリフォルニア州バークレー育ちで、自然、スポーツ、音楽を映像で捉えることに関心があります。暖かい気候やサーフィン、ヘアカット、ガーデニングが好きです。',
+          work: '作品を見る',
+          contact: '連絡先',
+          reelTitle: '注目のリール',
+          reelCaption: '注目のリール。再生ボタンを押してご覧ください。',
+        }
+      : {
+          portraitAlt: 'Alexander Sky portrait',
+          description:
+            'Freelance Filmmaker currently located in Sydney, Australia. Raised in Berkeley, CA interested in capturing the outdoors, sports, and music. I like warm weather, surfing, cutting hair, and gardening.',
+          work: 'View Work',
+          contact: 'Contact',
+          reelTitle: 'Featured reel',
+          reelCaption: 'Featured reel. Press Play to start.',
+        };
 
   return (
     <>
       <header className="hero-section" id="home">
         <div className="hero-layout">
           <div className="hero-text">
-            <img src={`${assetPrefix}/Alex.jpeg`} alt="Alexander Sky portrait" className="hero-portrait" />
-            <p className="hero-description">
-              Freelance Filmmaker currently located in Sydney, Australia. Comfortable shooting for documentaries, commercials, music videos, short films, social media, and more.
-            </p>
+            <img src={`${assetPrefix}/Alex.jpeg`} alt={copy.portraitAlt} className="hero-portrait" />
+            <p className="hero-description">{copy.description}</p>
             <div className="hero-actions">
               <Link to="/work" className="hero-action hero-action--primary">
-                View Work
+                {copy.work}
               </Link>
               <Link to="/contact" className="hero-action">
-                Contact
+                {copy.contact}
               </Link>
             </div>
           </div>
@@ -29,42 +50,17 @@ const Home: React.FC = () => {
               <iframe
                 className="hero-video"
                 src={reelEmbedUrl}
-                title="Featured reel"
+                title={copy.reelTitle}
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
               />
             </div>
-            <p className="hero-caption">Featured reel. Press Play to start.</p>
+            <p className="hero-caption">{copy.reelCaption}</p>
           </div>
         </div>
       </header>
 
-      <footer className="footer">
-        <a
-          href="https://www.instagram.com/askypic"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link"
-        >
-          <img src="igicon.png" alt="Instagram" className="logo-ig" />
-        </a>
-        <a
-          href="https://www.tiktok.com/@kinnoshitasky"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link"
-        >
-          <img src="ttlogo.png" alt="TikTok" className="logo-tiktok" />
-        </a>
-        <a
-          href="https://www.youtube.com/@kinoshitasky"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-link"
-        >
-          <img src="ytgreenlogo.png" alt="YouTube" className="logo-yt" />
-        </a>
-      </footer>
+      <SiteFooter />
     </>
   );
 };

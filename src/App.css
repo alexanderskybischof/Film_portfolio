@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html {
+  --text-color: #fff;
+  --cursor-otter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M2.5 3 8 15l2.4-4 4.2 4.1-3.8 2.3 11.4.2c4 0 7.3 2.7 7.3 6 0 3.1-3.2 5.7-7 5.7-2.5 0-4.8-1.1-6-2.9-.9.6-1.9 1-3 1-2.9 0-5.2-2.1-5.2-4.7 0-1.9 1.2-3.6 3-4.3L6.8 7.3 2.5 3Z' fill='%236b4a2d' stroke='%23261911' stroke-width='1.1' stroke-linejoin='round'/%3E%3Ccircle cx='23.2' cy='20.4' r='5' fill='%237a5635'/%3E%3Ccircle cx='20.2' cy='17.6' r='1.4' fill='%238b6746'/%3E%3Ccircle cx='26.2' cy='17.6' r='1.4' fill='%238b6746'/%3E%3Cellipse cx='23.3' cy='21.7' rx='4.1' ry='3.1' fill='%23d7b08a'/%3E%3Ccircle cx='21.8' cy='20.1' r='.65' fill='%23171410'/%3E%3Ccircle cx='24.8' cy='20.1' r='.65' fill='%23171410'/%3E%3Cellipse cx='23.3' cy='22.3' rx='1.1' ry='.8' fill='%23171410'/%3E%3Cpath d='M20.5 22.9c1.1.9 4.4.9 5.6 0' stroke='%23171410' stroke-width='.8' stroke-linecap='round'/%3E%3Cpath d='M18.2 21.5h2.8M18.2 23.2h2.8M25.7 21.5h2.7M25.7 23.2h2.7' stroke='%23f2e6d8' stroke-width='.7' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E") 3 3, auto;
+}
+
 body,
 html,
 .App {
@@ -11,9 +16,20 @@ html,
   font-family: 'Neue Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 400;
   background-color: #080808;
-  color: #fff;
+  color: var(--text-color);
   overflow-x: hidden;
   overflow-y: auto;
+  cursor: var(--cursor-otter);
+}
+
+a,
+button,
+[role='button'],
+input[type='button'],
+input[type='submit'],
+label,
+select {
+  cursor: var(--cursor-otter);
 }
 
 .has-grain {
@@ -51,6 +67,7 @@ html,
   height: 48px;
   padding: 0 27px;
   background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -83,27 +100,46 @@ html,
   text-align: center;
   font-size: 0.76rem;
   letter-spacing: 0.26em;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--text-color);
   white-space: nowrap;
 }
 
 .nav-right {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 20px;
 }
 
 .nav-link {
-  color: #fff;
+  color: var(--text-color);
   text-decoration: none;
   font-size: 0.9rem;
   margin-right: 20px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.nav-language-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: transparent;
+  color: var(--text-color);
+  padding: 7px 10px;
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background-color 0.28s ease, border-color 0.28s ease, opacity 0.28s ease;
+}
+
 .nav-link:hover {
   opacity: 0.6;
   transform: scale(1.1);
+}
+
+.nav-language-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+  opacity: 0.9;
 }
 
 .hero-section {
@@ -130,9 +166,7 @@ html,
   gap: 18px;
   padding: 40px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 42%),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+  background: rgba(8, 8, 8, 0.92);
   backdrop-filter: blur(8px);
   z-index: 4;
   animation: heroTextReveal 1.1s ease-out forwards;
@@ -142,7 +176,7 @@ html,
 .hero-kicker {
   font-size: 0.72rem;
   letter-spacing: 0.28em;
-  color: rgba(255, 255, 255, 0.68);
+  color: var(--text-color);
 }
 
 .hero-media {
@@ -172,7 +206,7 @@ html,
   max-width: 34rem;
   font-size: 0.95rem;
   line-height: 1.75;
-  color: #d7d7d7;
+  color: var(--text-color);
 }
 
 .hero-actions {
@@ -189,7 +223,7 @@ html,
   min-width: 132px;
   padding: 12px 18px;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  color: #fff;
+  color: var(--text-color);
   text-decoration: none;
   transition: background-color 0.28s ease, border-color 0.28s ease, transform 0.28s ease;
 }
@@ -201,19 +235,19 @@ html,
 }
 
 .hero-action--primary {
-  background-color: #fff;
-  color: #080808;
-  border-color: #fff;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--text-color);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .hero-action--primary:hover {
-  background-color: #e8e8e8;
-  border-color: #e8e8e8;
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.32);
 }
 
 .hero-caption {
   margin-top: 12px;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--text-color);
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -256,6 +290,12 @@ html,
   max-width: 360px;
   width: min(100%, 360px);
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+  filter: saturate(1);
+  transition: filter 0.75s ease;
+}
+
+.hero-portrait:hover {
+  filter: saturate(0) contrast(1.12);
 }
 
 .info-section {
@@ -320,7 +360,7 @@ html,
 
 .info-content p {
   font-size: 0.8rem;
-  color: #ddd;
+  color: var(--text-color);
   margin-bottom: 15px;
   letter-spacing: 0.03em;
   line-height: 1.7;
@@ -367,7 +407,7 @@ html,
 }
 
 .contact-content p {
-  color: #ccc;
+  color: var(--text-color);
   margin-top:24px
 }
 
@@ -472,7 +512,7 @@ html,
   gap: 8px;
   padding: 20px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.76);
+  color: var(--text-color);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
     rgba(255, 255, 255, 0.02);
@@ -516,7 +556,7 @@ html,
   display: inline-block;
   margin-bottom: 18px;
   text-decoration: none;
-  color: #ccc;
+  color: var(--text-color);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   transition: opacity 0.28s ease, border-color 0.28s ease;
 }
@@ -537,7 +577,7 @@ html,
 }
 
 .project-detail__description p {
-  color: #d7d7d7;
+  color: var(--text-color);
   font-size: 0.96rem;
   line-height: 1.8;
   text-align: center;
@@ -602,7 +642,7 @@ html,
 
 .project-detail__media-placeholder small {
   font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.52);
+  color: var(--text-color);
 }
 
 .project-detail__stills {
@@ -675,7 +715,7 @@ html,
   position: absolute;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(8, 8, 8, 0.72);
-  color: #fff;
+  color: var(--text-color);
   cursor: pointer;
   transition: background-color 0.24s ease, border-color 0.24s ease, opacity 0.24s ease;
 }
@@ -731,7 +771,7 @@ html,
 }
 
 .footer-left {
-  color: #d4d4d4;
+  color: var(--text-color);
   font-size: 0.85rem;
   line-height: 1.5;
 }
@@ -820,6 +860,12 @@ html,
     margin-right: 0;
     font-size: 0.76rem;
     padding: 12px 0;
+  }
+
+  .nav-language-toggle {
+    padding: 6px 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
   }
 
   .hero-section {

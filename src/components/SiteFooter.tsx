@@ -1,7 +1,21 @@
 import React from 'react';
+import { useLanguage } from '../i18n';
 
 const SiteFooter: React.FC = React.memo(() => {
   const assetPrefix = process.env.PUBLIC_URL || '';
+  const { language } = useLanguage();
+  const labels =
+    language === 'ja'
+      ? {
+          instagram: 'インスタグラム',
+          tiktok: 'TikTok',
+          youtube: 'YouTube',
+        }
+      : {
+          instagram: 'Instagram',
+          tiktok: 'TikTok',
+          youtube: 'YouTube',
+        };
 
   return (
     <footer className="footer">
@@ -11,7 +25,7 @@ const SiteFooter: React.FC = React.memo(() => {
         rel="noopener noreferrer"
         className="social-link"
       >
-        <img src={`${assetPrefix}/igicon.png`} alt="Instagram" className="logo-ig" />
+        <img src={`${assetPrefix}/igicon.png`} alt={labels.instagram} className="logo-ig" />
       </a>
       <a
         href="https://www.tiktok.com/@kinnoshitasky"
@@ -19,7 +33,7 @@ const SiteFooter: React.FC = React.memo(() => {
         rel="noopener noreferrer"
         className="social-link"
       >
-        <img src={`${assetPrefix}/ttlogo.png`} alt="TikTok" className="logo-tiktok" />
+        <img src={`${assetPrefix}/ttlogo.png`} alt={labels.tiktok} className="logo-tiktok" />
       </a>
       <a
         href="https://www.youtube.com/@kinoshitasky"
@@ -27,7 +41,7 @@ const SiteFooter: React.FC = React.memo(() => {
         rel="noopener noreferrer"
         className="social-link"
       >
-        <img src={`${assetPrefix}/ytgreenlogo.png`} alt="YouTube" className="logo-yt" />
+        <img src={`${assetPrefix}/ytgreenlogo.png`} alt={labels.youtube} className="logo-yt" />
       </a>
     </footer>
   );

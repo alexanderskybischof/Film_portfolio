@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import SiteFooter from '../components/SiteFooter';
-import { getProjectByCategoryAndSlug, getYoutubeEmbedUrl } from '../data/work';
+import { getProjectByCategoryAndSlug, getText, getYoutubeEmbedUrl } from '../data/work';
+import { useLanguage } from '../i18n';
 
 type ProjectDetailProps = {
   fixedCategorySlug?: string;
@@ -14,6 +15,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
   const projectSlug = fixedProjectSlug ?? params.projectSlug;
   const projectMatch = getProjectByCategoryAndSlug(categorySlug, projectSlug);
   const [activeFrameIndex, setActiveFrameIndex] = useState<number | null>(null);
+  const { language } = useLanguage();
   const galleryFrames = projectMatch?.project.stillFrames.filter(
     (frame): frame is typeof frame & { src: string } => Boolean(frame.src),
   ) || [];
@@ -77,7 +79,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
           ...(project.secondaryVideoUrl
             ? [
                 {
-                  title: `${project.title} alternate video`,
+                  title:
+                    language === 'ja'
+                      ? { en: `${getText(project.title, 'en')} alternate video`, ja: `${getText(project.title, 'ja')} 別バージョン` }
+                      : { en: `${getText(project.title, 'en')} alternate video`, ja: `${getText(project.title, 'ja')} 別バージョン` },
                   videoType: project.videoType,
                   videoUrl: project.secondaryVideoUrl,
                   embedUrl: secondaryEmbedUrl,
@@ -88,26 +93,38 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
       : [];
   const hasSingleVideo = videoItems.length === 1;
   const isPersonalProject = category.slug === 'personal';
-  const displayTitle = isPersonalProject ? category.title : project.title;
+  const displayTitle = isPersonalProject ? getText(category.title, language) : getText(project.title, language);
   const useCompactSingleVideo = isPersonalProject && hasSingleVideo;
   const shouldCenterLastVideo = videoItems.length > 1 && videoItems.length % 2 === 1;
   const activeFrame = activeFrameIndex !== null ? galleryFrames[activeFrameIndex] : null;
   const backLinkTo = isPersonalProject ? '/work' : `/work/${category.slug}`;
   const descriptionClassName = `project-detail__description work-fade visible${videoItems.length ? '' : ' project-detail__description--plain'}`;
+  const projectTitle = getText(project.title, language);
+  const backToWork = language === 'ja' ? '作品一覧へ戻る' : 'Back to Work';
+  const mediaComingSoon = language === 'ja' ? '準備中' : 'Media coming soon';
+  const photoSlot = language === 'ja' ? '写真枠' : 'Photo slot';
+  const photoPlaceholder = language === 'ja' ? '写真プレースホルダー' : 'Photo placeholder';
+  const closeLabel = language === 'ja' ? '閉じる' : 'Close';
+  const previousPhoto = language === 'ja' ? '前の写真' : 'Previous photo';
+  const nextPhoto = language === 'ja' ? '次の写真' : 'Next photo';
+  const openPrefix = language === 'ja' ? '' : 'Open ';
+  const dialogLabel = language === 'ja' ? `${projectTitle} 画像ビューア` : `${projectTitle} image viewer`;
+  const stillsLabel = language === 'ja' ? `${projectTitle} スチル一覧` : `${projectTitle} still frames`;
+  const description = getText(project.description, language);
 
   return (
     <main className="page page--project">
       <div className="page-content page-content--project">
         <div className="project-detail__header work-fade visible">
           <Link to={backLinkTo} className="project-detail__back-link">
-            Back to Work
+            {backToWork}
           </Link>
           <h1>{displayTitle}</h1>
         </div>
 
-        {project.description && videoItems.length ? (
+        {description && videoItems.length ? (
           <section className={descriptionClassName}>
-            <p>{project.description}</p>
+            <p>{description}</p>
           </section>
         ) : null}
 
@@ -119,12 +136,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
               {videoItems.map((video, index) => (
                 <div
                   className={`project-detail__video-frame${(shouldCenterLastVideo && index === videoItems.length - 1) || useCompactSingleVideo ? ' project-detail__video-frame--centered' : ''}`}
-                  key={video.title}
+                  key={`${getText(video.title, 'en')}-${index}`}
                 >
                   {video.videoType === 'youtube' ? (
                     <iframe
                       src={video.embedUrl}
-                      title={video.title}
+                      title={getText(video.title, language)}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                       loading="lazy"
@@ -135,7 +152,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
                       controls
                       playsInline
                       preload="metadata"
-                      aria-label={video.title}
+                      aria-label={getText(video.title, language)}
                     />
                   )}
                 </div>
@@ -144,42 +161,45 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
           </section>
         ) : (
           <section className={descriptionClassName}>
-            <p>{project.description || 'Media coming soon'}</p>
+            <p>{description || mediaComingSoon}</p>
           </section>
         )}
 
         {project.stillFrames.length ? (
-          <section className="project-detail__stills work-fade visible" aria-label={`${project.title} still frames`}>
-            {project.stillFrames.map((frame) => (
-              <figure
-                className={`project-detail__still${frame.solidBackground ? ' project-detail__still--solid' : ''}`}
-                key={frame.src || frame.alt}
-              >
-                {frame.src ? (
-                  <button
-                    type="button"
-                    className="project-detail__still-button"
-                    onClick={() => {
-                      const nextIndex = galleryFrames.findIndex((galleryFrame) => galleryFrame.src === frame.src);
-                      setActiveFrameIndex(nextIndex === -1 ? null : nextIndex);
-                    }}
-                    aria-label={`Open ${frame.alt}`}
-                  >
-                    <img
-                      className={frame.solidBackground ? 'project-detail__still-image--solid' : undefined}
-                      src={frame.src}
-                      alt={frame.alt}
-                      loading="lazy"
-                    />
-                  </button>
-                ) : (
-                  <div className="project-detail__media-placeholder" aria-label={frame.alt}>
-                    <span>{frame.label || 'Photo slot'}</span>
-                    <small>Photo placeholder</small>
-                  </div>
-                )}
-              </figure>
-            ))}
+          <section className="project-detail__stills work-fade visible" aria-label={stillsLabel}>
+            {project.stillFrames.map((frame) => {
+              const frameAlt = getText(frame.alt, language);
+              return (
+                <figure
+                  className={`project-detail__still${frame.solidBackground ? ' project-detail__still--solid' : ''}`}
+                  key={frame.src || frameAlt}
+                >
+                  {frame.src ? (
+                    <button
+                      type="button"
+                      className="project-detail__still-button"
+                      onClick={() => {
+                        const nextIndex = galleryFrames.findIndex((galleryFrame) => galleryFrame.src === frame.src);
+                        setActiveFrameIndex(nextIndex === -1 ? null : nextIndex);
+                      }}
+                      aria-label={language === 'ja' ? `${frameAlt} を開く` : `${openPrefix}${frameAlt}`}
+                    >
+                      <img
+                        className={frame.solidBackground ? 'project-detail__still-image--solid' : undefined}
+                        src={frame.src}
+                        alt={frameAlt}
+                        loading="lazy"
+                      />
+                    </button>
+                  ) : (
+                    <div className="project-detail__media-placeholder" aria-label={frameAlt}>
+                      <span>{getText(frame.label, language) || photoSlot}</span>
+                      <small>{photoPlaceholder}</small>
+                    </div>
+                  )}
+                </figure>
+              );
+            })}
           </section>
         ) : null}
 
@@ -188,16 +208,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
             className="project-detail__lightbox"
             role="dialog"
             aria-modal="true"
-            aria-label={`${project.title} image viewer`}
+            aria-label={dialogLabel}
             onClick={() => setActiveFrameIndex(null)}
           >
             <button
               type="button"
               className="project-detail__lightbox-close"
               onClick={() => setActiveFrameIndex(null)}
-              aria-label="Close image viewer"
+              aria-label={language === 'ja' ? '画像ビューアを閉じる' : 'Close image viewer'}
             >
-              Close
+              {closeLabel}
             </button>
             {galleryFrames.length > 1 ? (
               <button
@@ -209,13 +229,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
                     currentIndex === null ? currentIndex : (currentIndex - 1 + galleryFrames.length) % galleryFrames.length,
                   );
                 }}
-                aria-label="Previous photo"
+                aria-label={previousPhoto}
               >
                 &#8249;
               </button>
             ) : null}
             <div className="project-detail__lightbox-content" onClick={(event) => event.stopPropagation()}>
-              <img src={activeFrame.src} alt={activeFrame.alt} />
+              <img src={activeFrame.src} alt={getText(activeFrame.alt, language)} />
             </div>
             {galleryFrames.length > 1 ? (
               <button
@@ -227,7 +247,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
                     currentIndex === null ? currentIndex : (currentIndex + 1) % galleryFrames.length,
                   );
                 }}
-                aria-label="Next photo"
+                aria-label={nextPhoto}
               >
                 &#8250;
               </button>

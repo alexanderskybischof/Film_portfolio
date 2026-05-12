@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import SiteFooter from '../components/SiteFooter';
-import { getCategoryBySlug } from '../data/work';
+import { getCategoryBySlug, getText } from '../data/work';
+import { useLanguage } from '../i18n';
 import { revealOnIntersect } from '../utils/revealOnIntersect';
 
 const WorkCategory: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>();
   const category = getCategoryBySlug(categorySlug);
+  const { language } = useLanguage();
 
   useEffect(() => {
     return revealOnIntersect(document.querySelectorAll('.work-row, .work-fade'));
@@ -21,9 +23,9 @@ const WorkCategory: React.FC = () => {
       <div className="page-content page-content--work">
         <div className="project-detail__header work-fade visible">
           <Link to="/work" className="project-detail__back-link">
-            Back to Work
+            {language === 'ja' ? '作品一覧へ戻る' : 'Back to Work'}
           </Link>
-          <h1 className="work-fade visible">{category.title}</h1>
+          <h1 className="work-fade visible">{getText(category.title, language)}</h1>
         </div>
 
         <section className="work-list work-fade visible">
@@ -34,12 +36,12 @@ const WorkCategory: React.FC = () => {
               to={`/work/${category.slug}/${project.slug}`}
             >
               <div className="work-row__label">
-                <h2 className="work-row__title">{project.title}</h2>
+                <h2 className="work-row__title">{getText(project.title, language)}</h2>
               </div>
               <div className="work-row__media">
                 {!project.thumbnail.src ? (
-                  <div className="work-row__placeholder" aria-label={project.thumbnail.alt}>
-                    Media Coming Soon
+                  <div className="work-row__placeholder" aria-label={getText(project.thumbnail.alt, language)}>
+                    {language === 'ja' ? '準備中' : 'Media Coming Soon'}
                   </div>
                 ) : project.thumbnail.type === 'video' ? (
                   <video
@@ -49,12 +51,12 @@ const WorkCategory: React.FC = () => {
                     autoPlay
                     loop
                     preload="metadata"
-                    aria-label={project.thumbnail.alt}
+                    aria-label={getText(project.thumbnail.alt, language)}
                   />
                 ) : (
                   <img
                     src={project.thumbnail.src}
-                    alt={project.thumbnail.alt}
+                    alt={getText(project.thumbnail.alt, language)}
                     loading="lazy"
                     style={
                       project.thumbnail.objectPosition

@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SiteFooter from '../components/SiteFooter';
-import { workCategories } from '../data/work';
+import { getText, workCategories } from '../data/work';
+import { useLanguage } from '../i18n';
 import { revealOnIntersect } from '../utils/revealOnIntersect';
 
 const Work: React.FC = () => {
+  const { language } = useLanguage();
+
   useEffect(() => {
     return revealOnIntersect(document.querySelectorAll('.work-category-card, .work-fade'));
   }, []);
@@ -12,7 +15,7 @@ const Work: React.FC = () => {
   return (
     <main className="page page--work">
       <div className="page-content page-content--work">
-        <h1 className="work-fade">Work</h1>
+        <h1 className="work-fade">{language === 'ja' ? '作品' : 'Work'}</h1>
 
         <section className="work-categories work-fade">
           {workCategories.map((category) => (
@@ -28,12 +31,12 @@ const Work: React.FC = () => {
               }
             >
               <div className="work-category-card__label">
-                <h2 className="work-category-card__title">{category.title}</h2>
+                <h2 className="work-category-card__title">{getText(category.title, language)}</h2>
               </div>
               <div className="work-category-card__media">
                 {!category.cardImage ? (
-                  <div className="work-row__placeholder" aria-label={category.cardImageAlt}>
-                    Media Coming Soon
+                  <div className="work-row__placeholder" aria-label={getText(category.cardImageAlt, language)}>
+                    {language === 'ja' ? '準備中' : 'Media Coming Soon'}
                   </div>
                 ) : category.cardImageType === 'video' ? (
                   <video
@@ -43,10 +46,10 @@ const Work: React.FC = () => {
                     autoPlay
                     loop
                     preload="metadata"
-                    aria-label={category.cardImageAlt}
+                    aria-label={getText(category.cardImageAlt, language)}
                   />
                 ) : (
-                  <img src={category.cardImage} alt={category.cardImageAlt} loading="lazy" />
+                  <img src={category.cardImage} alt={getText(category.cardImageAlt, language)} loading="lazy" />
                 )}
               </div>
             </Link>
