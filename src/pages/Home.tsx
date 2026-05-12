@@ -14,6 +14,7 @@ const Home: React.FC = () => {
             'オーストラリア・シドニーを拠点に活動するフリーランスの映像作家。カリフォルニア州バークレーと日本の大阪で育ち、自然、スポーツ、音楽を映像で捉えることに関心があります。ボストン大学で映画・テレビとデータサイエンスを学んでいます。暖かい気候やサーフィン、ヘアカット、ガーデニングが好きです。',
           contactLabel: '連絡先',
           contactEmail: 'alex@stomii.com',
+          linkedinLabel: 'linkedin',
         }
       : {
           portraitAlt: 'Alexander Sky portrait',
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
             'Freelance Filmmaker currently based in Sydney, Australia. Raised in Berkeley, CA and Osaka, Japan interested in capturing the outdoors, sports, music and culture. Studying Film/TV and Data Science at Boston University. Some things I like include warm weather, surfing, cutting hair, and gardening.',
           contactLabel: 'Contact',
           contactEmail: 'alex@stomii.com',
+          linkedinLabel: 'linkedin',
         };
 
   return (
@@ -38,6 +40,14 @@ const Home: React.FC = () => {
               </h2>
               <a href={`mailto:${copy.contactEmail}`} className="info-contact-link">
                 {copy.contactEmail}
+              </a>
+              <a
+                href="https://www.linkedin.com/in/alexanderskybischof/"
+                target="_blank"
+                rel="noreferrer"
+                className="info-contact-link"
+              >
+                {copy.linkedinLabel}
               </a>
             </section>
             <div className="info-otter-wrap">

@@ -245,6 +245,11 @@ select {
   transition: opacity 0.24s ease, border-color 0.24s ease;
 }
 
+.info-contact-link + .info-contact-link {
+  display: block;
+  width: fit-content;
+}
+
 .info-contact-link:hover {
   opacity: 0.72;
   border-color: rgba(255, 255, 255, 0.7);
@@ -388,7 +393,22 @@ select {
 
 .contact-content p {
   color: var(--text-color);
-  margin-top:24px
+  margin-top: 24px;
+}
+
+.contact-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--text-color);
+  font: inherit;
+  font-size: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  transition: opacity 0.24s ease;
+}
+
+.contact-link:hover {
+  opacity: 0.72;
 }
 
 @keyframes contactFade {
