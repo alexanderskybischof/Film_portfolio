@@ -15,21 +15,23 @@ const AppShell: React.FC = () => {
   const grainStyle = { '--grain-url': `url(${assetPrefix}/noise.png)` } as React.CSSProperties;
   const { language, toggleLanguage } = useLanguage();
   const navCopy =
-    language === 'ja'
-      ? {
-          logoAlt: 'アレクサンダー・スカイのロゴ',
-          work: '作品',
-          contact: '連絡先',
-          toggle: 'English',
-          toggleAria: 'Switch site language to English',
-        }
-      : {
-          logoAlt: 'Alexander Sky Logo',
-          work: 'WORK',
-          contact: 'CONTACT',
-          toggle: '日本語',
-          toggleAria: 'Switch site language to Japanese',
-        };
+  language === 'ja'
+    ? {
+        logoAlt: 'アレクサンダー・スカイのロゴ',
+        name: '木下アレックサンダースカイ',
+        work: '作品',
+        contact: '連絡先',
+        toggle: 'English',
+        toggleAria: 'Switch site language to English',
+      }
+    : {
+        logoAlt: 'Alexander Sky Logo',
+        name: 'ALEXANDER SKY BISCHOF',
+        work: 'WORK',
+        contact: 'CONTACT',
+        toggle: '日本語',
+        toggleAria: 'Switch site language to Japanese',
+      };
 
   return (
     <div className="App has-grain" style={grainStyle}>
@@ -39,7 +41,7 @@ const AppShell: React.FC = () => {
             <img src="/AlexSkySignature2.png" alt={navCopy.logoAlt} />
           </Link>
         </div>
-        <div className="nav-center">ALEXANDER SKY BISCHOF</div>
+        <div className="nav-center">{navCopy.name}</div>
         <div className="nav-right">
           <Link to="/work" className="nav-link">
             {navCopy.work}
