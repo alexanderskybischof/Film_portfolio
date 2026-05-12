@@ -143,7 +143,7 @@ select {
 .hero-section {
   position: relative;
   width: 100%;
-  padding: 120px 40px 48px;
+  padding: 96px 40px 28px;
   overflow: visible;
 }
 
@@ -162,7 +162,7 @@ select {
   flex-direction: column;
   align-items: flex-start;
   gap: 18px;
-  padding: 40px;
+  padding: 40px 40px 72px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(8, 8, 8, 0.92);
   backdrop-filter: blur(8px);
@@ -212,6 +212,31 @@ select {
   flex-wrap: wrap;
   gap: 14px;
   padding-top: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-otter-wrap {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+}
+
+.hero-otter {
+  width: 92px;
+  color: rgba(255, 255, 255, 0.82);
+  opacity: 0.78;
+}
+
+.hero-otter img,
+.hero-otter svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-otter-image {
+  filter: brightness(0) invert(1);
 }
 
 .hero-action {
@@ -752,7 +777,7 @@ select {
 
 .footer {
   width: 100%;
-  margin-top: 60px;
+  margin-top: 36px;
   position: relative;
   z-index: 4;
   text-align: center;
@@ -867,7 +892,7 @@ select {
   }
 
   .hero-section {
-    padding: 92px 16px 24px;
+    padding: 80px 16px 16px;
   }
 
   .hero-layout {
@@ -877,7 +902,7 @@ select {
 
   .hero-text {
     width: 100%;
-    padding: 24px 18px;
+    padding: 24px 18px 72px;
     gap: 14px;
   }
 
@@ -903,6 +928,15 @@ select {
   .hero-actions {
     width: 100%;
     flex-direction: column;
+  }
+
+  .hero-otter-wrap {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .hero-otter {
+    width: 74px;
   }
 
   .hero-action {

@@ -7,6 +7,7 @@ const Home: React.FC = () => {
   const assetPrefix = process.env.PUBLIC_URL || '';
   const reelEmbedUrl = 'https://player.vimeo.com/video/1173915010';
   const { language } = useLanguage();
+
   const copy =
     language === 'ja'
       ? {
@@ -42,6 +43,11 @@ const Home: React.FC = () => {
               <Link to="/contact" className="hero-action">
                 {copy.contact}
               </Link>
+            </div>
+            <div className="hero-otter-wrap">
+              <div className="hero-otter" aria-hidden="true">
+                <img src={`${assetPrefix}/otter.png`} alt="" className="hero-otter-image" />
+              </div>
             </div>
           </div>
 
