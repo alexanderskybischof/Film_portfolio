@@ -10,7 +10,6 @@ const Home: React.FC = () => {
       <header className="hero-section" id="home">
         <div className="hero-layout">
           <div className="hero-text">
-            <p className="hero-kicker">DIRECTOR · CINEMATOGRAPHER · EDITOR</p>
             <img src={`${assetPrefix}/Alex.jpeg`} alt="Alexander Sky portrait" className="hero-portrait" />
             <p className="hero-description">
               Freelance Filmmaker currently located in Sydney, Australia. Comfortable shooting for documentaries, commercials, music videos, short films, social media, and more.
