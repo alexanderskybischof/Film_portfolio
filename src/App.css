@@ -6,7 +6,7 @@
 
 html {
   --text-color: #fff;
-  --cursor-otter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M2.5 3 8 15l2.4-4 4.2 4.1-3.8 2.3 11.4.2c4 0 7.3 2.7 7.3 6 0 3.1-3.2 5.7-7 5.7-2.5 0-4.8-1.1-6-2.9-.9.6-1.9 1-3 1-2.9 0-5.2-2.1-5.2-4.7 0-1.9 1.2-3.6 3-4.3L6.8 7.3 2.5 3Z' fill='%236b4a2d' stroke='%23261911' stroke-width='1.1' stroke-linejoin='round'/%3E%3Ccircle cx='23.2' cy='20.4' r='5' fill='%237a5635'/%3E%3Ccircle cx='20.2' cy='17.6' r='1.4' fill='%238b6746'/%3E%3Ccircle cx='26.2' cy='17.6' r='1.4' fill='%238b6746'/%3E%3Cellipse cx='23.3' cy='21.7' rx='4.1' ry='3.1' fill='%23d7b08a'/%3E%3Ccircle cx='21.8' cy='20.1' r='.65' fill='%23171410'/%3E%3Ccircle cx='24.8' cy='20.1' r='.65' fill='%23171410'/%3E%3Cellipse cx='23.3' cy='22.3' rx='1.1' ry='.8' fill='%23171410'/%3E%3Cpath d='M20.5 22.9c1.1.9 4.4.9 5.6 0' stroke='%23171410' stroke-width='.8' stroke-linecap='round'/%3E%3Cpath d='M18.2 21.5h2.8M18.2 23.2h2.8M25.7 21.5h2.7M25.7 23.2h2.7' stroke='%23f2e6d8' stroke-width='.7' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E") 3 3, auto;
+  --cursor-y2k: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M4 3.5 11.6 21l2.8-6.1 5.8 4.7 1.8-2.2-5.9-4.8 6.2-1.8L4 3.5Z' fill='%23ffffff' stroke='%23000000' stroke-width='1.35' stroke-linejoin='round'/%3E%3Cpath d='M8.2 7.4 17 14.6' stroke='%23cfcfcf' stroke-width='.9' stroke-linecap='round' opacity='.95'/%3E%3C/svg%3E") 2 2, auto;
 }
 
 body,
@@ -19,7 +19,7 @@ html,
   color: var(--text-color);
   overflow-x: hidden;
   overflow-y: auto;
-  cursor: var(--cursor-otter);
+  cursor: var(--cursor-y2k);
 }
 
 a,
@@ -29,7 +29,7 @@ input[type='button'],
 input[type='submit'],
 label,
 select {
-  cursor: var(--cursor-otter);
+  cursor: var(--cursor-y2k);
 }
 
 .has-grain {
@@ -66,8 +66,6 @@ select {
   width: 100%;
   height: 48px;
   padding: 0 27px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
