@@ -168,9 +168,11 @@ select {
 
 .info-hero {
   width: 100%;
-  padding: 86px 40px 12px;
+  padding: 86px 40px 16px;
   position: relative;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
 }
 
 .info-layout {
@@ -228,6 +230,22 @@ select {
   margin-top: 28px;
 }
 
+.info-clocks-block {
+  width: min(1320px, 100%);
+  margin: 18px auto 8px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.info-clocks-block::-webkit-scrollbar {
+  display: none;
+}
+
 .info-section-label {
   font-size: 1.15rem;
   font-weight: 700;
@@ -253,6 +271,42 @@ select {
 .info-contact-link:hover {
   opacity: 0.72;
   border-color: rgba(255, 255, 255, 0.7);
+}
+
+.info-clock-line {
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.26);
+  margin-bottom: 10px;
+}
+
+.info-clock-line + .info-clock-line {
+  margin-left: 14px;
+}
+
+.info-clock-row {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.info-clock-time {
+  font-size: 0.7rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.info-clock-place {
+  font-size: 0.7rem;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.info-clock-meta {
+  font-size: 0.7rem;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .info-otter-wrap {
@@ -870,7 +924,7 @@ select {
   }
 
   .info-hero {
-    padding: 76px 16px 6px;
+    padding: 76px 16px 12px;
   }
 
   .info-layout {
@@ -895,6 +949,37 @@ select {
 
   .info-contact-block {
     margin-top: 22px;
+  }
+
+  .info-clocks-block {
+    width: 100%;
+    margin-top: 18px;
+    margin-bottom: 6px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .info-clock-line {
+    padding-left: 10px;
+  }
+
+  .info-clock-line + .info-clock-line {
+    margin-left: 10px;
+    margin-top: 0;
+  }
+
+  .info-clock-time,
+  .info-clock-place,
+  .info-clock-meta {
+    font-size: 0.64rem;
+  }
+
+  .info-clock-row {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 7px;
+    white-space: nowrap;
   }
 
   .info-section-label {
