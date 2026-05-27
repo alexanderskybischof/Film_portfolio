@@ -20,7 +20,7 @@ const SiteFooter: React.FC = React.memo(() => {
   return (
     <footer className="footer">
       <a
-        href="https://www.instagram.com/askypic"
+        href="https://www.instagram.com/bykinosky/"
         target="_blank"
         rel="noopener noreferrer"
         className="social-link"
@@ -36,7 +36,7 @@ const SiteFooter: React.FC = React.memo(() => {
         <img src={`${assetPrefix}/ttlogo.png`} alt={labels.tiktok} className="logo-tiktok" />
       </a>
       <a
-        href="https://www.youtube.com/@kinoshitasky"
+        href="https://www.youtube.com/@bykinosky"
         target="_blank"
         rel="noopener noreferrer"
         className="social-link"
