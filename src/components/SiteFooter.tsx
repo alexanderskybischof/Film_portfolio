@@ -20,7 +20,7 @@ const SiteFooter: React.FC = React.memo(() => {
   return (
     <footer className="footer">
       <a
-        href="https://www.instagram.com/bykinosky/"
+        href="https://www.instagram.com/alexskyfilms/"
         target="_blank"
         rel="noopener noreferrer"
         className="social-link"

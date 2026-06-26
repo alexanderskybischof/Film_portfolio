@@ -58,6 +58,7 @@ const WorkCategory: React.FC = () => {
                     src={project.thumbnail.src}
                     alt={getText(project.thumbnail.alt, language)}
                     loading="lazy"
+                    draggable={false}
                     style={
                       project.thumbnail.objectPosition
                         ? { objectPosition: project.thumbnail.objectPosition }

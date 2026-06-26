@@ -39,7 +39,7 @@ const AppShell: React.FC = () => {
       <nav className="navbar">
         <div className="nav-left">
           <Link to="/" className="nav-logo">
-            <img src="/AlexSkySignature2.png" alt={navCopy.logoAlt} />
+            <img src="/AlexSkySignature2.png" alt={navCopy.logoAlt} draggable={false} />
           </Link>
         </div>
         <div className="nav-center">{navCopy.name}</div>

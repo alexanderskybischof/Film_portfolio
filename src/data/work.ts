@@ -195,6 +195,39 @@ export const workCategories: WorkCategory[] = [
     cardImageAlt: localized('Short films preview', '短編映画のプレビュー'),
     projects: [
       {
+        slug: 'aigamo-documentary',
+        title: localized('Aigamo Documentary (2027)', 'アイガモ・ドキュメンタリー (2027)'),
+        description: localized(
+          'The Aigamo Method is a Japanese regenerative agricultural technique where ducks are used to fertilize rice fields and eliminate pests. Through stories of Vermont farmer Erik Andrus and the international “World Duck Family,” the film explores the challenges and rewards of pursuing an unconventional path in a modern food system driven by convenience. Structured around the seasonal cycle of rice farming, the documentary portrays how shared values and purpose can connect people across cultures.',
+          'アイガモ農法は、アヒルを使って田んぼに肥料を与え、害虫を取り除く日本の再生型農業の手法です。バーモント州の農家エリック・アンドラスと国際的な「ワールド・ダック・ファミリー」の物語を通して、この作品は、利便性に支配された現代の食料システムの中で、型にはまらない道を選ぶことの難しさと喜びを描きます。稲作の季節の循環に沿って構成されたこのドキュメンタリーは、価値観と目的の共有が文化を越えて人々を結びつける様子を映し出します。',
+        ),
+        videoType: 'local',
+        videoUrl: '',
+        thumbnail: {
+          src: `${assetPrefix}/aigamod1.png`,
+          alt: localized('Aigamo Documentary preview', 'アイガモ・ドキュメンタリーのプレビュー'),
+          type: 'image',
+        },
+        stillFrames: [
+          {
+            src: `${assetPrefix}/aigamod1.png`,
+            alt: localized('Aigamo Documentary still frame 1', 'アイガモ・ドキュメンタリーのスチル 1'),
+          },
+          {
+            src: `${assetPrefix}/aigamodoc2.png`,
+            alt: localized('Aigamo Documentary still frame 2', 'アイガモ・ドキュメンタリーのスチル 2'),
+          },
+          {
+            src: `${assetPrefix}/aigamodo3.png`,
+            alt: localized('Aigamo Documentary still frame 3', 'アイガモ・ドキュメンタリーのスチル 3'),
+          },
+          {
+            src: `${assetPrefix}/aigamodoc4.png`,
+            alt: localized('Aigamo Documentary still frame 4', 'アイガモ・ドキュメンタリーのスチル 4'),
+          },
+        ],
+      },
+      {
         slug: 'hungry-drudge',
         title: localized('Hungry Drudge', 'Hungry Drudge'),
         description: undefined,

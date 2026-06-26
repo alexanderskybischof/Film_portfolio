@@ -189,6 +189,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
                         src={frame.src}
                         alt={frameAlt}
                         loading="lazy"
+                        draggable={false}
                       />
                     </button>
                   ) : (
@@ -235,7 +236,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
               </button>
             ) : null}
             <div className="project-detail__lightbox-content" onClick={(event) => event.stopPropagation()}>
-              <img src={activeFrame.src} alt={getText(activeFrame.alt, language)} />
+              <img src={activeFrame.src} alt={getText(activeFrame.alt, language)} draggable={false} />
             </div>
             {galleryFrames.length > 1 ? (
               <button

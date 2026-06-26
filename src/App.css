@@ -435,6 +435,8 @@ select {
 .page--contact h1,
 .page--project h1 {
   width: 100%;
+  margin: 0;
+  line-height: 1.14;
   text-align: center;
 }
 
@@ -555,6 +557,17 @@ select {
   object-fit: cover;
 }
 
+.info-photo,
+.hero-otter-image,
+.nav-logo img,
+.work-category-card__media img,
+.work-row__media img,
+.project-detail__still img,
+.project-detail__lightbox-content img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 .work-row__placeholder,
 .project-detail__media-placeholder {
   width: 100%;
@@ -624,10 +637,7 @@ select {
   width: min(100%, 860px);
   margin-top: 24px;
   padding: 22px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 40%),
-    rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .project-detail__description p {
@@ -932,12 +942,17 @@ select {
     gap: 18px;
   }
 
+  .info-photo-panel {
+    justify-content: center;
+  }
+
   .info-copy-panel {
     width: 100%;
     padding-top: 0;
   }
 
   .info-photo {
+    margin: 0 auto;
     width: min(100%, 320px);
   }
 
@@ -1013,16 +1028,53 @@ select {
 
   .work-category-card,
   .work-row {
-    min-height: 180px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
   .work-category-card__label,
   .work-row__label {
-    top: -14px;
-    left: -10px;
-    max-width: min(70vw, 240px);
-    padding: 10px 16px;
-    border-radius: 14px;
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: none;
+    padding: 14px 16px;
+    border-radius: 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+  }
+
+  .work-category-card__media,
+  .work-row__media {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  .work-category-card__title,
+  .work-row__title {
+    font-size: 1.02rem;
+  }
+
+  .project-detail__header,
+  .page--work h1,
+  .page--project h1 {
+    text-align: left;
+  }
+
+  .project-detail__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .project-detail__back-link {
+    margin-bottom: 0;
   }
 
   .project-detail__video-grid {
@@ -1031,12 +1083,14 @@ select {
   }
 
   .project-detail__description {
+    width: 100%;
     padding: 18px 16px;
   }
 
   .project-detail__description p {
     font-size: 0.9rem;
     line-height: 1.7;
+    text-align: left;
   }
 
   .project-detail__video-frame--centered {
@@ -1044,7 +1098,20 @@ select {
   }
 
   .project-detail__stills {
-    grid-auto-columns: minmax(240px, 84vw);
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    grid-auto-columns: auto;
+    overflow-x: visible;
+    gap: 12px;
+    padding-bottom: 0;
+  }
+
+  .project-detail__still {
+    aspect-ratio: auto;
+  }
+
+  .project-detail__still img {
+    aspect-ratio: 4 / 3;
   }
 
   .project-detail__lightbox {

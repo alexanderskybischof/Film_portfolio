@@ -22,42 +22,8 @@ type HomeClock = {
 const clocks: HomeClock[] = [
   {
     place: {
-      en: 'Sydney, Australia (currently located)',
-      ja: 'オーストラリア、シドニー（現在地）',
-    },
-    timeZone: 'Australia/Sydney',
-    latitude: -33.8688,
-    longitude: 151.2093,
-    fallback: {
-      temperatureC: 20,
-      weather: {
-        en: 'Sunny',
-        ja: '晴れ',
-      },
-      windKph: 18,
-    },
-  },
-  {
-    place: {
-      en: 'Osaka, Japan',
-      ja: '日本、大阪',
-    },
-    timeZone: 'Asia/Tokyo',
-    latitude: 34.6937,
-    longitude: 135.5023,
-    fallback: {
-      temperatureC: 23,
-      weather: {
-        en: 'Partly cloudy',
-        ja: '晴れ時々くもり',
-      },
-      windKph: 12,
-    },
-  },
-  {
-    place: {
-      en: 'San Francisco, California',
-      ja: 'アメリカ、サンフランシスコ',
+      en: 'San Francisco, California (currently located)',
+      ja: 'アメリカ、サンフランシスコ（現在地）',
     },
     timeZone: 'America/Los_Angeles',
     latitude: 37.7749,
@@ -86,6 +52,40 @@ const clocks: HomeClock[] = [
         ja: '快晴',
       },
       windKph: 15,
+    },
+  },
+  {
+    place: {
+      en: 'Osaka, Japan',
+      ja: '日本、大阪',
+    },
+    timeZone: 'Asia/Tokyo',
+    latitude: 34.6937,
+    longitude: 135.5023,
+    fallback: {
+      temperatureC: 23,
+      weather: {
+        en: 'Partly cloudy',
+        ja: '晴れ時々くもり',
+      },
+      windKph: 12,
+    },
+  },
+  {
+    place: {
+      en: 'Sydney, Australia (previously)',
+      ja: 'オーストラリア、シドニー（以前）',
+    },
+    timeZone: 'Australia/Sydney',
+    latitude: -33.8688,
+    longitude: 151.2093,
+    fallback: {
+      temperatureC: 20,
+      weather: {
+        en: 'Sunny',
+        ja: '晴れ',
+      },
+      windKph: 18,
     },
   },
 ];
@@ -234,7 +234,7 @@ const Home: React.FC = () => {
       ? {
           portraitAlt: 'アレクサンダー・スカイのポートレート',
           description:
-            'オーストラリア・シドニーを拠点に活動するフリーランスの映像作家。カリフォルニア州バークレーと日本の大阪で育ち、自然、スポーツ、音楽を映像で捉えることに関心があります。ボストン大学で映画・テレビとデータサイエンスを学んでいます。暖かい気候やサーフィン、ヘアカット、ガーデニングが好きです。',
+            'カリフォルニア州バークレーと日本の大阪で育ったフリーランスの映像作家。自然、スポーツ、音楽、カルチャーを映像で捉えることに関心があります。ボストン大学で映画・テレビとデータサイエンスを学んでいます。暖かい気候やサーフィン、ヘアカット、ガーデニングが好きです。',
           contactLabel: '連絡先',
           contactEmail: 'alex@stomii.com',
           linkedinLabel: 'linkedin',
@@ -244,7 +244,7 @@ const Home: React.FC = () => {
       : {
           portraitAlt: 'Alexander Sky portrait',
           description:
-            'Freelance Filmmaker currently based in Sydney, Australia. Raised in Berkeley, CA and Osaka, Japan interested in capturing the outdoors, sports, music and culture. Studying Film/TV and Data Science at Boston University. Some things I like include warm weather, surfing, cutting hair, and gardening.',
+            'Freelance Filmmaker raised in Berkeley, CA and Osaka, Japan interested in capturing the outdoors, sports, music and culture. Studying Film/TV and Data Science at Boston University. Some things I like include warm weather, surfing, cutting hair, and gardening.',
           contactLabel: 'Contact',
           contactEmail: 'alex@stomii.com',
           linkedinLabel: 'linkedin',
@@ -257,7 +257,7 @@ const Home: React.FC = () => {
       <section className="info-hero">
         <div className="info-layout">
           <div className="info-photo-panel">
-            <img src={`${assetPrefix}/Alex.jpeg`} alt={copy.portraitAlt} className="info-photo" />
+            <img src={`${assetPrefix}/Alex.jpeg`} alt={copy.portraitAlt} className="info-photo" draggable={false} />
           </div>
           <div className="info-copy-panel">
             <p className="info-description">{copy.description}</p>
@@ -277,7 +277,7 @@ const Home: React.FC = () => {
                 {copy.linkedinLabel}
               </a>
               <a
-                href="https://www.instagram.com/bykinosky/"
+                href="https://www.instagram.com/alexskyfilms/"
                 target="_blank"
                 rel="noreferrer"
                 className="info-contact-link"
@@ -295,7 +295,7 @@ const Home: React.FC = () => {
             </section>
             <div className="info-otter-wrap">
               <div className="info-otter" aria-hidden="true">
-                <img src={`${assetPrefix}/otter.png`} alt="" className="hero-otter-image" />
+                <img src={`${assetPrefix}/otter.png`} alt="" className="hero-otter-image" draggable={false} />
               </div>
             </div>
           </div>
