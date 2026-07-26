@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import SiteFooter from '../components/SiteFooter';
-import { getProjectByCategoryAndSlug, getText, getYoutubeEmbedUrl } from '../data/work';
+import { getProjectByCategoryAndSlug, getText, getVimeoEmbedUrl, getYoutubeEmbedUrl } from '../data/work';
 import { useLanguage } from '../i18n';
 
 type ProjectDetailProps = {
@@ -58,15 +58,29 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
   }
 
   const { category, project } = projectMatch;
-  const embedUrl = project.videoType === 'youtube' ? getYoutubeEmbedUrl(project.videoUrl) : '';
+  const getEmbedUrl = (videoType: 'youtube' | 'vimeo' | 'local', videoUrl?: string) => {
+    if (!videoUrl) {
+      return '';
+    }
+
+    if (videoType === 'youtube') {
+      return getYoutubeEmbedUrl(videoUrl);
+    }
+
+    if (videoType === 'vimeo') {
+      return getVimeoEmbedUrl(videoUrl);
+    }
+
+    return '';
+  };
+
+  const embedUrl = getEmbedUrl(project.videoType, project.videoUrl);
   const secondaryEmbedUrl =
-    project.secondaryVideoUrl && project.videoType === 'youtube'
-      ? getYoutubeEmbedUrl(project.secondaryVideoUrl)
-      : '';
+    project.secondaryVideoUrl ? getEmbedUrl(project.videoType, project.secondaryVideoUrl) : '';
   const videoItems = project.videos?.length
     ? project.videos.map((video) => ({
         ...video,
-        embedUrl: video.videoType === 'youtube' && video.videoUrl ? getYoutubeEmbedUrl(video.videoUrl) : '',
+        embedUrl: getEmbedUrl(video.videoType, video.videoUrl),
       }))
     : project.videoUrl
       ? [
@@ -93,6 +107,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
       : [];
   const hasSingleVideo = videoItems.length === 1;
   const isPersonalProject = category.slug === 'personal';
+  const isAigamoProject = project.slug === 'aigamo-documentary';
   const displayTitle = isPersonalProject ? getText(category.title, language) : getText(project.title, language);
   const useCompactSingleVideo = isPersonalProject && hasSingleVideo;
   const shouldCenterLastVideo = videoItems.length > 1 && videoItems.length % 2 === 1;
@@ -111,6 +126,88 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
   const dialogLabel = language === 'ja' ? `${projectTitle} 画像ビューア` : `${projectTitle} image viewer`;
   const stillsLabel = language === 'ja' ? `${projectTitle} スチル一覧` : `${projectTitle} still frames`;
   const description = getText(project.description, language);
+  const descriptionSection = description ? (
+    <section className={descriptionClassName}>
+      <p>{description}</p>
+    </section>
+  ) : null;
+  const stillsSection = project.stillFrames.length ? (
+    <section
+      className={`project-detail__stills work-fade visible${isAigamoProject ? ' project-detail__stills--gallery' : ''}`}
+      aria-label={stillsLabel}
+    >
+      {project.stillFrames.map((frame) => {
+        const frameAlt = getText(frame.alt, language);
+        return (
+          <figure
+            className={`project-detail__still${frame.solidBackground ? ' project-detail__still--solid' : ''}`}
+            key={frame.src || frameAlt}
+          >
+            {frame.src ? (
+              <button
+                type="button"
+                className="project-detail__still-button"
+                onClick={() => {
+                  const nextIndex = galleryFrames.findIndex((galleryFrame) => galleryFrame.src === frame.src);
+                  setActiveFrameIndex(nextIndex === -1 ? null : nextIndex);
+                }}
+                aria-label={language === 'ja' ? `${frameAlt} を開く` : `${openPrefix}${frameAlt}`}
+              >
+                <img
+                  className={frame.solidBackground ? 'project-detail__still-image--solid' : undefined}
+                  src={frame.src}
+                  alt={frameAlt}
+                  loading="lazy"
+                  draggable={false}
+                />
+              </button>
+            ) : (
+              <div className="project-detail__media-placeholder" aria-label={frameAlt}>
+                <span>{getText(frame.label, language) || photoSlot}</span>
+                <small>{photoPlaceholder}</small>
+              </div>
+            )}
+          </figure>
+        );
+      })}
+    </section>
+  ) : null;
+  const videoSection = videoItems.length ? (
+    <section className="project-detail__video work-fade visible">
+      <div
+        className={`project-detail__video-grid${hasSingleVideo ? ' project-detail__video-grid--single' : ''}${useCompactSingleVideo ? ' project-detail__video-grid--single-compact' : ''}`}
+      >
+        {videoItems.map((video, index) => (
+          <div
+            className={`project-detail__video-frame${(shouldCenterLastVideo && index === videoItems.length - 1) || useCompactSingleVideo ? ' project-detail__video-frame--centered' : ''}`}
+            key={`${getText(video.title, 'en')}-${index}`}
+          >
+            {video.videoType === 'youtube' || video.videoType === 'vimeo' ? (
+              <iframe
+                src={video.embedUrl}
+                title={getText(video.title, language)}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+              ></iframe>
+            ) : (
+              <video
+                src={video.videoUrl}
+                controls
+                playsInline
+                preload="metadata"
+                aria-label={getText(video.title, language)}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  ) : (
+    <section className={descriptionClassName}>
+      <p>{description || mediaComingSoon}</p>
+    </section>
+  );
 
   return (
     <main className="page page--project">
@@ -122,87 +219,19 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
           <h1>{displayTitle}</h1>
         </div>
 
-        {description && videoItems.length ? (
-          <section className={descriptionClassName}>
-            <p>{description}</p>
-          </section>
-        ) : null}
-
-        {videoItems.length ? (
-          <section className="project-detail__video work-fade visible">
-            <div
-              className={`project-detail__video-grid${hasSingleVideo ? ' project-detail__video-grid--single' : ''}${useCompactSingleVideo ? ' project-detail__video-grid--single-compact' : ''}`}
-            >
-              {videoItems.map((video, index) => (
-                <div
-                  className={`project-detail__video-frame${(shouldCenterLastVideo && index === videoItems.length - 1) || useCompactSingleVideo ? ' project-detail__video-frame--centered' : ''}`}
-                  key={`${getText(video.title, 'en')}-${index}`}
-                >
-                  {video.videoType === 'youtube' ? (
-                    <iframe
-                      src={video.embedUrl}
-                      title={getText(video.title, language)}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      loading="lazy"
-                    ></iframe>
-                  ) : (
-                    <video
-                      src={video.videoUrl}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      aria-label={getText(video.title, language)}
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-          </section>
+        {isAigamoProject ? (
+          <>
+            {descriptionSection}
+            {stillsSection}
+            {videoSection}
+          </>
         ) : (
-          <section className={descriptionClassName}>
-            <p>{description || mediaComingSoon}</p>
-          </section>
+          <>
+            {descriptionSection}
+            {videoSection}
+            {stillsSection}
+          </>
         )}
-
-        {project.stillFrames.length ? (
-          <section className="project-detail__stills work-fade visible" aria-label={stillsLabel}>
-            {project.stillFrames.map((frame) => {
-              const frameAlt = getText(frame.alt, language);
-              return (
-                <figure
-                  className={`project-detail__still${frame.solidBackground ? ' project-detail__still--solid' : ''}`}
-                  key={frame.src || frameAlt}
-                >
-                  {frame.src ? (
-                    <button
-                      type="button"
-                      className="project-detail__still-button"
-                      onClick={() => {
-                        const nextIndex = galleryFrames.findIndex((galleryFrame) => galleryFrame.src === frame.src);
-                        setActiveFrameIndex(nextIndex === -1 ? null : nextIndex);
-                      }}
-                      aria-label={language === 'ja' ? `${frameAlt} を開く` : `${openPrefix}${frameAlt}`}
-                    >
-                      <img
-                        className={frame.solidBackground ? 'project-detail__still-image--solid' : undefined}
-                        src={frame.src}
-                        alt={frameAlt}
-                        loading="lazy"
-                        draggable={false}
-                      />
-                    </button>
-                  ) : (
-                    <div className="project-detail__media-placeholder" aria-label={frameAlt}>
-                      <span>{getText(frame.label, language) || photoSlot}</span>
-                      <small>{photoPlaceholder}</small>
-                    </div>
-                  )}
-                </figure>
-              );
-            })}
-          </section>
-        ) : null}
 
         {activeFrame ? (
           <div

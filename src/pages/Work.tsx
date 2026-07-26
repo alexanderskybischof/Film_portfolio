@@ -47,7 +47,17 @@ const Work: React.FC = () => {
                     aria-label={getText(category.cardImageAlt, language)}
                   />
                 ) : (
-                  <img src={category.cardImage} alt={getText(category.cardImageAlt, language)} loading="lazy" draggable={false} />
+                  <img
+                    src={category.cardImage}
+                    alt={getText(category.cardImageAlt, language)}
+                    loading="lazy"
+                    draggable={false}
+                    style={
+                      category.cardImageObjectPosition
+                        ? { objectPosition: category.cardImageObjectPosition }
+                        : undefined
+                    }
+                  />
                 )}
               </div>
             </Link>

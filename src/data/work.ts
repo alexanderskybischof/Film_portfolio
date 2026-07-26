@@ -6,12 +6,12 @@ export type WorkProject = {
   slug: string;
   title: LocalizedText;
   description?: LocalizedText;
-  videoType: 'youtube' | 'local';
+  videoType: 'youtube' | 'vimeo' | 'local';
   videoUrl: string;
   secondaryVideoUrl?: string;
   videos?: Array<{
     title: LocalizedText;
-    videoType: 'youtube' | 'local';
+    videoType: 'youtube' | 'vimeo' | 'local';
     videoUrl?: string;
   }>;
   thumbnail: {
@@ -34,6 +34,7 @@ export type WorkCategory = {
   cardImage?: string;
   cardImageAlt: LocalizedText;
   cardImageType?: 'image' | 'video';
+  cardImageObjectPosition?: string;
   description?: LocalizedText;
   reelVideoUrl?: string;
   projects: WorkProject[];
@@ -54,6 +55,111 @@ export const workCategories: WorkCategory[] = [
     cardImageType: 'image',
     reelVideoUrl: `${assetPrefix}/rel.mp4`,
     projects: [],
+  },
+  {
+    slug: 'short-films',
+    title: localized('Short Films', '短編映画'),
+    cardImage: `${assetPrefix}/Still 2026-07-26 161432_1.1.1.jpg`,
+    cardImageAlt: localized('Short films preview', '短編映画のプレビュー'),
+    cardImageObjectPosition: 'center 34%',
+    projects: [
+      {
+        slug: 'aigamo-documentary',
+        title: localized('Aigamo Documentary (2027)', 'アイガモ・ドキュメンタリー (2027)'),
+        description: localized(
+          'The Aigamo Method is a Japanese regenerative agricultural technique where ducks are used to fertilize rice fields and eliminate pests. Through stories of Vermont farmer Erik Andrus and the international “World Duck Family,” the film explores the challenges and rewards of pursuing an unconventional path in a modern food system driven by convenience. Structured around the seasonal cycle of rice farming, the documentary portrays how shared values and purpose can connect people across cultures.',
+          'アイガモ農法は、アヒルを使って田んぼに肥料を与え、害虫を取り除く日本の再生型農業の手法です。バーモント州の農家エリック・アンドラスと国際的な「ワールド・ダック・ファミリー」の物語を通して、この作品は、利便性に支配された現代の食料システムの中で、型にはまらない道を選ぶことの難しさと喜びを描きます。稲作の季節の循環に沿って構成されたこのドキュメンタリーは、価値観と目的の共有が文化を越えて人々を結びつける様子を映し出します。',
+        ),
+        videoType: 'vimeo',
+        videoUrl: 'https://vimeo.com/1213108065?share=copy&fl=sv&fe=ci',
+        thumbnail: {
+          src: `${assetPrefix}/Still 2026-07-26 162114_2.8.1.jpg`,
+          alt: localized('Aigamo Documentary preview', 'アイガモ・ドキュメンタリーのプレビュー'),
+          type: 'image',
+          objectPosition: 'center 16%',
+        },
+        stillFrames: [
+          {
+            src: `${assetPrefix}/aigamod1.png`,
+            alt: localized('Aigamo Documentary still frame 1', 'アイガモ・ドキュメンタリーのスチル 1'),
+          },
+          {
+            src: `${assetPrefix}/aigamodoc2.png`,
+            alt: localized('Aigamo Documentary still frame 2', 'アイガモ・ドキュメンタリーのスチル 2'),
+          },
+          {
+            src: `${assetPrefix}/aigamodo3.png`,
+            alt: localized('Aigamo Documentary still frame 3', 'アイガモ・ドキュメンタリーのスチル 3'),
+          },
+          {
+            src: `${assetPrefix}/aigamodoc4.png`,
+            alt: localized('Aigamo Documentary still frame 4', 'アイガモ・ドキュメンタリーのスチル 4'),
+          },
+          {
+            src: `${assetPrefix}/Still+2026-07-18+234828_2.1.1.webp`,
+            alt: localized('Aigamo Documentary still frame 5', 'アイガモ・ドキュメンタリーのスチル 5'),
+          },
+          {
+            src: `${assetPrefix}/Still+2026-07-18+234828_2.3.2.webp`,
+            alt: localized('Aigamo Documentary still frame 6', 'アイガモ・ドキュメンタリーのスチル 6'),
+          },
+          {
+            src: `${assetPrefix}/Still+2026-07-18+234828_3.6.1.webp`,
+            alt: localized('Aigamo Documentary still frame 7', 'アイガモ・ドキュメンタリーのスチル 7'),
+          },
+          {
+            src: `${assetPrefix}/Still+2026-07-18+235445_1.1.1.webp`,
+            alt: localized('Aigamo Documentary still frame 8', 'アイガモ・ドキュメンタリーのスチル 8'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-07-26 161432_1.1.1.jpg`,
+            alt: localized('Aigamo Documentary still frame 9', 'アイガモ・ドキュメンタリーのスチル 9'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-07-26 162114_2.8.1.jpg`,
+            alt: localized('Aigamo Documentary still frame 10', 'アイガモ・ドキュメンタリーのスチル 10'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-07-26 162114_2.15.1.jpg`,
+            alt: localized('Aigamo Documentary still frame 11', 'アイガモ・ドキュメンタリーのスチル 11'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-07-26 162114_2.26.1.jpg`,
+            alt: localized('Aigamo Documentary still frame 12', 'アイガモ・ドキュメンタリーのスチル 12'),
+          },
+        ],
+      },
+      {
+        slug: 'hungry-drudge',
+        title: localized('Hungry Drudge', 'Hungry Drudge'),
+        description: undefined,
+        videoType: 'youtube',
+        videoUrl: 'https://www.youtube.com/watch?v=P5pREr7TDWw',
+        thumbnail: {
+          src: `${assetPrefix}/hd1.jpg`,
+          alt: localized('Hungry Drudge preview', 'Hungry Drudge のプレビュー'),
+          type: 'image',
+        },
+        stillFrames: [
+          {
+            src: `${assetPrefix}/hungrydrudgetitle.jpg`,
+            alt: localized('Hungry Drudge still frame 1', 'Hungry Drudge のスチル 1'),
+          },
+          {
+            src: `${assetPrefix}/hd2.jpg`,
+            alt: localized('Hungry Drudge still frame 2', 'Hungry Drudge のスチル 2'),
+          },
+          {
+            src: `${assetPrefix}/hd3.jpg`,
+            alt: localized('Hungry Drudge still frame 3', 'Hungry Drudge のスチル 3'),
+          },
+          {
+            src: `${assetPrefix}/hd4.jpg`,
+            alt: localized('Hungry Drudge still frame 4', 'Hungry Drudge のスチル 4'),
+          },
+        ],
+      },
+    ],
   },
   {
     slug: 'commercial-work',
@@ -153,110 +259,6 @@ export const workCategories: WorkCategory[] = [
           },
         ],
       },
-      {
-        slug: 'kahii',
-        title: localized('Kahii', 'Kahii'),
-        description: localized(
-          "Short Videos produced for Kahii's social media accounts",
-          'Kahii のソーシャルメディア向けに制作したショート映像です。',
-        ),
-        videoType: 'local',
-        videoUrl: '',
-        videos: [
-          { title: localized('Short Video 1', 'ショート映像 1'), videoType: 'youtube', videoUrl: 'https://youtu.be/KXBljh_hEgc' },
-          { title: localized('Short Video 2', 'ショート映像 2'), videoType: 'youtube', videoUrl: 'https://youtube.com/shorts/6nZLt6vMZhI?feature=share' },
-        ],
-        thumbnail: {
-          src: `${assetPrefix}/kahiistill.jpg`,
-          alt: localized('Kahii preview', 'Kahii のプレビュー'),
-          type: 'image',
-        },
-        stillFrames: [],
-      },
-      {
-        slug: 'bu-debate',
-        title: localized('BU Debate', 'BU ディベート'),
-        description: undefined,
-        videoType: 'youtube',
-        videoUrl: 'https://youtu.be/c9SvGeHA3vY',
-        thumbnail: {
-          src: `${assetPrefix}/debatetitlecard.png`,
-          alt: localized('BU Debate preview', 'BU ディベートのプレビュー'),
-          type: 'image',
-        },
-        stillFrames: [],
-      },
-    ],
-  },
-  {
-    slug: 'short-films',
-    title: localized('Short Films', '短編映画'),
-    cardImage: `${assetPrefix}/hd1.jpg`,
-    cardImageAlt: localized('Short films preview', '短編映画のプレビュー'),
-    projects: [
-      {
-        slug: 'aigamo-documentary',
-        title: localized('Aigamo Documentary (2027)', 'アイガモ・ドキュメンタリー (2027)'),
-        description: localized(
-          'The Aigamo Method is a Japanese regenerative agricultural technique where ducks are used to fertilize rice fields and eliminate pests. Through stories of Vermont farmer Erik Andrus and the international “World Duck Family,” the film explores the challenges and rewards of pursuing an unconventional path in a modern food system driven by convenience. Structured around the seasonal cycle of rice farming, the documentary portrays how shared values and purpose can connect people across cultures.',
-          'アイガモ農法は、アヒルを使って田んぼに肥料を与え、害虫を取り除く日本の再生型農業の手法です。バーモント州の農家エリック・アンドラスと国際的な「ワールド・ダック・ファミリー」の物語を通して、この作品は、利便性に支配された現代の食料システムの中で、型にはまらない道を選ぶことの難しさと喜びを描きます。稲作の季節の循環に沿って構成されたこのドキュメンタリーは、価値観と目的の共有が文化を越えて人々を結びつける様子を映し出します。',
-        ),
-        videoType: 'local',
-        videoUrl: '',
-        thumbnail: {
-          src: `${assetPrefix}/aigamod1.png`,
-          alt: localized('Aigamo Documentary preview', 'アイガモ・ドキュメンタリーのプレビュー'),
-          type: 'image',
-        },
-        stillFrames: [
-          {
-            src: `${assetPrefix}/aigamod1.png`,
-            alt: localized('Aigamo Documentary still frame 1', 'アイガモ・ドキュメンタリーのスチル 1'),
-          },
-          {
-            src: `${assetPrefix}/aigamodoc2.png`,
-            alt: localized('Aigamo Documentary still frame 2', 'アイガモ・ドキュメンタリーのスチル 2'),
-          },
-          {
-            src: `${assetPrefix}/aigamodo3.png`,
-            alt: localized('Aigamo Documentary still frame 3', 'アイガモ・ドキュメンタリーのスチル 3'),
-          },
-          {
-            src: `${assetPrefix}/aigamodoc4.png`,
-            alt: localized('Aigamo Documentary still frame 4', 'アイガモ・ドキュメンタリーのスチル 4'),
-          },
-        ],
-      },
-      {
-        slug: 'hungry-drudge',
-        title: localized('Hungry Drudge', 'Hungry Drudge'),
-        description: undefined,
-        videoType: 'youtube',
-        videoUrl: 'https://www.youtube.com/watch?v=P5pREr7TDWw',
-        thumbnail: {
-          src: `${assetPrefix}/hd1.jpg`,
-          alt: localized('Hungry Drudge preview', 'Hungry Drudge のプレビュー'),
-          type: 'image',
-        },
-        stillFrames: [
-          {
-            src: `${assetPrefix}/hungrydrudgetitle.jpg`,
-            alt: localized('Hungry Drudge still frame 1', 'Hungry Drudge のスチル 1'),
-          },
-          {
-            src: `${assetPrefix}/hd2.jpg`,
-            alt: localized('Hungry Drudge still frame 2', 'Hungry Drudge のスチル 2'),
-          },
-          {
-            src: `${assetPrefix}/hd3.jpg`,
-            alt: localized('Hungry Drudge still frame 3', 'Hungry Drudge のスチル 3'),
-          },
-          {
-            src: `${assetPrefix}/hd4.jpg`,
-            alt: localized('Hungry Drudge still frame 4', 'Hungry Drudge のスチル 4'),
-          },
-        ],
-      },
     ],
   },
   {
@@ -313,6 +315,21 @@ export const getYoutubeEmbedUrl = (videoUrl: string) => {
     }
 
     return `https://www.youtube.com/embed/${shortCode}?enablejsapi=1`;
+  } catch {
+    return '';
+  }
+};
+
+export const getVimeoEmbedUrl = (videoUrl: string) => {
+  try {
+    const url = new URL(videoUrl);
+    const videoId = url.pathname.split('/').filter(Boolean)[0];
+
+    if (!videoId) {
+      return '';
+    }
+
+    return `https://player.vimeo.com/video/${videoId}`;
   } catch {
     return '';
   }
