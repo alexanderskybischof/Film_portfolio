@@ -1,6 +1,6 @@
 import type { Language, LocalizedText } from '../i18n';
 
-export type WorkCategoryKey = 'reel' | 'commercial-work' | 'short-films' | 'personal';
+export type WorkCategoryKey = 'reel' | 'commercial-work' | 'events' | 'short-films' | 'personal';
 
 export type WorkProject = {
   slug: string;
@@ -35,6 +35,7 @@ export type WorkCategory = {
   cardImageAlt: LocalizedText;
   cardImageType?: 'image' | 'video';
   cardImageObjectPosition?: string;
+  secondCardThumbnail?: WorkProject['thumbnail'];
   description?: LocalizedText;
   reelVideoUrl?: string;
   projects: WorkProject[];
@@ -262,6 +263,44 @@ export const workCategories: WorkCategory[] = [
     ],
   },
   {
+    slug: 'events',
+    title: localized('Events', 'イベント'),
+    cardImage: `${assetPrefix}/thecoles.png`,
+    cardImageAlt: localized('The Coles event preview', 'The Coles イベントのプレビュー'),
+    cardImageType: 'image',
+    secondCardThumbnail: {
+      src: `${assetPrefix}/nomidokoro.png`,
+      alt: localized('Nomidokoro Indigo preview', 'Nomidokoro Indigo のプレビュー'),
+      type: 'image',
+    },
+    projects: [
+      {
+        slug: 'nomidokoro-indigo-promo',
+        title: localized('Nomidokoro Indigo Promo', 'Nomidokoro Indigo Promo'),
+        videoType: 'vimeo',
+        videoUrl: 'https://vimeo.com/1227144504',
+        thumbnail: {
+          src: `${assetPrefix}/nomidokoro.png`,
+          alt: localized('Nomidokoro Indigo Promo preview', 'Nomidokoro Indigo Promo のプレビュー'),
+          type: 'image',
+        },
+        stillFrames: [],
+      },
+      {
+        slug: 'omni-promo',
+        title: localized('Omni Promo', 'Omni Promo'),
+        videoType: 'youtube',
+        videoUrl: 'https://youtu.be/uxYo6_fEd7w',
+        thumbnail: {
+          src: `${assetPrefix}/omni.png`,
+          alt: localized('Omni Promo preview', 'Omni Promo のプレビュー'),
+          type: 'image',
+        },
+        stillFrames: [],
+      },
+    ],
+  },
+  {
     slug: 'personal',
     title: localized('Personal', '個人作品'),
     cardImage: `${assetPrefix}/crossingjapan.png`,
@@ -314,7 +353,7 @@ export const getYoutubeEmbedUrl = (videoUrl: string) => {
       return '';
     }
 
-    return `https://www.youtube.com/embed/${shortCode}?enablejsapi=1`;
+    return `https://www.youtube.com/embed/${shortCode}?enablejsapi=1&rel=0&playsinline=1&iv_load_policy=3&color=white`;
   } catch {
     return '';
   }

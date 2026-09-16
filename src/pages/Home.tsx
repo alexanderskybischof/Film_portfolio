@@ -22,8 +22,25 @@ type HomeClock = {
 const clocks: HomeClock[] = [
   {
     place: {
-      en: 'San Francisco, California (currently located)',
-      ja: 'アメリカ、サンフランシスコ（現在地）',
+      en: 'Boston, Massachusetts (currently located)',
+      ja: 'アメリカ、ボストン（現在地）',
+    },
+    timeZone: 'America/New_York',
+    latitude: 42.3601,
+    longitude: -71.0589,
+    fallback: {
+      temperatureC: 17,
+      weather: {
+        en: 'Clear',
+        ja: '快晴',
+      },
+      windKph: 15,
+    },
+  },
+  {
+    place: {
+      en: 'San Francisco, California (last located)',
+      ja: 'アメリカ、サンフランシスコ（直前の所在地）',
     },
     timeZone: 'America/Los_Angeles',
     latitude: 37.7749,
@@ -39,19 +56,19 @@ const clocks: HomeClock[] = [
   },
   {
     place: {
-      en: 'Boston, Massachusetts',
-      ja: 'アメリカ、ボストン',
+      en: 'Sydney, Australia',
+      ja: 'オーストラリア、シドニー',
     },
-    timeZone: 'America/New_York',
-    latitude: 42.3601,
-    longitude: -71.0589,
+    timeZone: 'Australia/Sydney',
+    latitude: -33.8688,
+    longitude: 151.2093,
     fallback: {
-      temperatureC: 17,
+      temperatureC: 20,
       weather: {
-        en: 'Clear',
-        ja: '快晴',
+        en: 'Sunny',
+        ja: '晴れ',
       },
-      windKph: 15,
+      windKph: 18,
     },
   },
   {
@@ -69,23 +86,6 @@ const clocks: HomeClock[] = [
         ja: '晴れ時々くもり',
       },
       windKph: 12,
-    },
-  },
-  {
-    place: {
-      en: 'Sydney, Australia (previously)',
-      ja: 'オーストラリア、シドニー（以前）',
-    },
-    timeZone: 'Australia/Sydney',
-    latitude: -33.8688,
-    longitude: 151.2093,
-    fallback: {
-      temperatureC: 20,
-      weather: {
-        en: 'Sunny',
-        ja: '晴れ',
-      },
-      windKph: 18,
     },
   },
 ];

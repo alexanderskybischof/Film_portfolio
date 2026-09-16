@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import SiteFooter from '../components/SiteFooter';
+import YoutubePlayer from '../components/YoutubePlayer';
 import { getProjectByCategoryAndSlug, getText, getVimeoEmbedUrl, getYoutubeEmbedUrl } from '../data/work';
 import { useLanguage } from '../i18n';
 
 type ProjectDetailProps = {
   fixedCategorySlug?: string;
   fixedProjectSlug?: string;
+};
+
+const getCircularOffset = (index: number, activeIndex: number, total: number) => {
+  const rawOffset = index - activeIndex;
+  const half = total / 2;
+
+  if (rawOffset > half) {
+    return rawOffset - total;
+  }
+
+  if (rawOffset < -half) {
+    return rawOffset + total;
+  }
+
+  return rawOffset;
 };
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedProjectSlug }) => {
@@ -112,6 +128,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
   const useCompactSingleVideo = isPersonalProject && hasSingleVideo;
   const shouldCenterLastVideo = videoItems.length > 1 && videoItems.length % 2 === 1;
   const activeFrame = activeFrameIndex !== null ? galleryFrames[activeFrameIndex] : null;
+  const activeGalleryIndex = activeFrameIndex ?? 0;
   const backLinkTo = isPersonalProject ? '/work' : `/work/${category.slug}`;
   const descriptionClassName = `project-detail__description work-fade visible${videoItems.length ? '' : ' project-detail__description--plain'}`;
   const projectTitle = getText(project.title, language);
@@ -119,7 +136,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
   const mediaComingSoon = language === 'ja' ? '準備中' : 'Media coming soon';
   const photoSlot = language === 'ja' ? '写真枠' : 'Photo slot';
   const photoPlaceholder = language === 'ja' ? '写真プレースホルダー' : 'Photo placeholder';
-  const closeLabel = language === 'ja' ? '閉じる' : 'Close';
   const previousPhoto = language === 'ja' ? '前の写真' : 'Previous photo';
   const nextPhoto = language === 'ja' ? '次の写真' : 'Next photo';
   const openPrefix = language === 'ja' ? '' : 'Open ';
@@ -182,7 +198,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
             className={`project-detail__video-frame${(shouldCenterLastVideo && index === videoItems.length - 1) || useCompactSingleVideo ? ' project-detail__video-frame--centered' : ''}`}
             key={`${getText(video.title, 'en')}-${index}`}
           >
-            {video.videoType === 'youtube' || video.videoType === 'vimeo' ? (
+            {video.videoType === 'youtube' ? (
+              <YoutubePlayer
+                embedUrl={video.embedUrl}
+                title={getText(video.title, language)}
+                poster={index === 0 && !project.videos?.length && project.thumbnail.type === 'image'
+                  ? project.thumbnail.src
+                  : undefined}
+              />
+            ) : video.videoType === 'vimeo' ? (
               <iframe
                 src={video.embedUrl}
                 title={getText(video.title, language)}
@@ -235,19 +259,24 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
 
         {activeFrame ? (
           <div
-            className="project-detail__lightbox"
+            className="project-detail__lightbox project-detail__lightbox--carousel"
             role="dialog"
             aria-modal="true"
             aria-label={dialogLabel}
-            onClick={() => setActiveFrameIndex(null)}
           >
+            <button
+              type="button"
+              className="project-detail__lightbox-backdrop"
+              onClick={() => setActiveFrameIndex(null)}
+              aria-label={language === 'ja' ? '画像ビューアを閉じる' : 'Close image viewer'}
+            />
             <button
               type="button"
               className="project-detail__lightbox-close"
               onClick={() => setActiveFrameIndex(null)}
               aria-label={language === 'ja' ? '画像ビューアを閉じる' : 'Close image viewer'}
             >
-              {closeLabel}
+              ×
             </button>
             {galleryFrames.length > 1 ? (
               <button
@@ -264,8 +293,26 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
                 &#8249;
               </button>
             ) : null}
-            <div className="project-detail__lightbox-content" onClick={(event) => event.stopPropagation()}>
-              <img src={activeFrame.src} alt={getText(activeFrame.alt, language)} draggable={false} />
+            <div className="project-detail__lightbox-stage">
+              {galleryFrames.map((frame, index) => {
+                const offset = getCircularOffset(index, activeGalleryIndex, galleryFrames.length);
+                const isVisible = Math.abs(offset) <= 2;
+
+                return (
+                  <button
+                    key={frame.src}
+                    type="button"
+                    className={`project-detail__lightbox-card${offset === 0 ? ' project-detail__lightbox-card--active' : ''}`}
+                    style={{ '--project-lightbox-offset': offset } as React.CSSProperties}
+                    onClick={() => setActiveFrameIndex(index)}
+                    aria-label={getText(frame.alt, language)}
+                    aria-hidden={!isVisible}
+                    tabIndex={isVisible ? 0 : -1}
+                  >
+                    <img src={frame.src} alt={getText(frame.alt, language)} draggable={false} />
+                  </button>
+                );
+              })}
             </div>
             {galleryFrames.length > 1 ? (
               <button
