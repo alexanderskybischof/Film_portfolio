@@ -285,7 +285,7 @@ const Home: React.FC = () => {
                 {copy.instagramLabel}
               </a>
               <a
-                href="https://www.youtube.com/@bykinosky"
+                href="https://www.youtube.com/@alexskyfilms"
                 target="_blank"
                 rel="noreferrer"
                 className="info-contact-link"
