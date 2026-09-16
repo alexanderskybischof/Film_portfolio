@@ -141,7 +141,7 @@ const stills: Still[] = [
     id: 'sydney-harbour-2026-09-15',
     title: { en: 'Sydney Harbour, September 15, 2026', ja: 'Sydney Harbour, 2026年9月15日' },
     dateTaken: '2026-09-15',
-    src: '/Photo Album 1 - 01.png',
+    src: '/Photo Album 1 - 01.jpg',
     alt: { en: 'Sydney Harbour, September 15, 2026', ja: 'Sydney Harbour, 2026年9月15日' },
     tags: ['outdoors'],
   },
