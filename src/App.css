@@ -6,6 +6,10 @@
 
 html {
   --text-color: #fff;
+  overscroll-behavior-y: none;
+  background: #080808;
+  overflow-x: clip;
+  overflow-y: auto;
 }
 
 body,
@@ -16,9 +20,12 @@ html,
   font-weight: 400;
   background-color: #080808;
   color: var(--text-color);
-  overflow-x: hidden;
-  overflow-y: auto;
   cursor: none;
+}
+
+body,
+.App {
+  overflow: visible;
 }
 
 a,
@@ -106,7 +113,7 @@ select {
 .has-grain {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .has-grain::after {
@@ -832,8 +839,8 @@ select {
   color: #fff;
   overflow: visible;
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transform: translateY(26px) rotate(var(--float-rotate));
+  opacity: 1;
+  transform: rotate(var(--float-rotate));
   transition: transform 0.28s ease, border-color 0.28s ease, filter 0.28s ease, box-shadow 0.28s ease;
   animation:
     stillsTileReveal 0.72s ease-out forwards,
@@ -1848,43 +1855,6 @@ select {
     aspect-ratio: 4 / 3;
   }
 
-  .project-detail__lightbox {
-    padding: 82px 14px 42px;
-  }
-
-  .project-detail__lightbox-stage {
-    inset: 82px 22px 44px;
-  }
-
-  .project-detail__lightbox-card {
-    width: min(82vw, 460px);
-    transform:
-      translate(-50%, -50%)
-      translateX(calc(var(--project-lightbox-offset) * 34%))
-      rotateY(calc(var(--project-lightbox-offset) * -7deg))
-      rotateZ(calc(var(--project-lightbox-offset) * 1deg))
-      scale(calc(1 - max(var(--project-lightbox-offset), -1 * var(--project-lightbox-offset)) * 0.18));
-  }
-
-  .project-detail__lightbox-close {
-    top: 70px;
-    right: 14px;
-  }
-
-  .project-detail__lightbox-nav {
-    width: 36px;
-    height: 36px;
-    font-size: 1.55rem;
-  }
-
-  .project-detail__lightbox-nav--prev {
-    left: 16px;
-  }
-
-  .project-detail__lightbox-nav--next {
-    right: 16px;
-  }
-
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -1902,16 +1872,43 @@ select {
     justify-self: start;
   }
 
-  .stills-carousel {
+
+}
+
+.gallery-count {
+  position: absolute;
+  z-index: 8;
+  top: calc(24px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.stills-carousel__stage,
+.project-detail__lightbox-stage {
+  touch-action: pan-y pinch-zoom;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+  .stills-carousel,
+  .project-detail__lightbox {
     padding: 0;
+    perspective: none;
+    overscroll-behavior: contain;
   }
 
-  .stills-carousel__stage {
+  .stills-carousel__stage,
+  .project-detail__lightbox-stage {
     inset: calc(68px + env(safe-area-inset-top)) 16px calc(80px + env(safe-area-inset-bottom));
     perspective: none;
+    transform-style: flat;
   }
 
-  .stills-carousel__card {
+  .stills-carousel__card,
+  .stills-carousel__card--portrait,
+  .project-detail__lightbox-card {
     width: 100%;
     height: 100%;
     aspect-ratio: auto;
@@ -1920,24 +1917,22 @@ select {
     background: transparent;
     box-shadow: none;
     transform: translate(-50%, -50%);
-    transition: opacity 0.2s ease;
+    transition: none;
   }
 
-  .stills-carousel__card--portrait {
-    width: 100%;
+  .stills-carousel__card:not(.stills-carousel__card--active),
+  .project-detail__lightbox-card:not(.project-detail__lightbox-card--active) {
+    display: none;
   }
 
-  .stills-carousel__card:not(.stills-carousel__card--active) {
-    visibility: hidden;
-    pointer-events: none;
-  }
-
-  .stills-carousel__card img {
+  .stills-carousel__card img,
+  .project-detail__lightbox-card img {
     object-fit: contain;
     background: transparent;
   }
 
-  .stills-carousel__control {
+  .stills-carousel__control,
+  .project-detail__lightbox-nav {
     top: auto;
     bottom: calc(16px + env(safe-area-inset-bottom));
     width: 48px;
@@ -1946,28 +1941,60 @@ select {
     transform: none;
   }
 
-  .stills-carousel__control:hover {
+  .stills-carousel__control:hover,
+  .project-detail__lightbox-nav:hover {
     transform: none;
   }
 
-  .stills-carousel__control--prev {
+  .stills-carousel__control--prev,
+  .project-detail__lightbox-nav--prev {
     left: calc(50% - 60px);
   }
 
-  .stills-carousel__control--next {
+  .stills-carousel__control--next,
+  .project-detail__lightbox-nav--next {
     right: calc(50% - 60px);
   }
 
-  .stills-carousel__close {
+  .stills-carousel__close,
+  .project-detail__lightbox-close {
     top: calc(12px + env(safe-area-inset-top));
     right: 16px;
     width: 44px;
     height: 44px;
   }
+}
 
+@media (max-width: 700px) {
+  .navbar {
+    background: #080808;
+  }
+
+  .nav-center {
+    display: none;
+  }
+
+  .nav-link,
+  .nav-language-toggle {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-link {
+    padding-inline: 4px;
+  }
+}
+
+/* Keep touch galleries independent of column fragmentation and reveal animations. */
+@media (max-width: 1100px), (pointer: coarse) {
   .stills-field {
-    column-count: 1;
-    column-gap: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 28px 24px;
+    column-count: auto;
     margin-top: 28px;
   }
 
@@ -1975,7 +2002,7 @@ select {
     display: block;
     min-height: 0;
     aspect-ratio: auto;
-    margin: 0 0 24px;
+    margin: 0;
     opacity: 1;
     transform: none;
     translate: none;
@@ -1999,6 +2026,7 @@ select {
     width: 100%;
   }
 
+  .stills-tile--aquarium-corner,
   .stills-tile:nth-child(7n + 2),
   .stills-tile:nth-child(7n + 4),
   .stills-tile:nth-child(7n + 6),
@@ -2027,4 +2055,14 @@ select {
     text-align: left;
   }
 
+  .has-grain::after {
+    position: fixed;
+    animation: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .stills-field {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

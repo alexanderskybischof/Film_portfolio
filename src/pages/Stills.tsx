@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
+import useGalleryNavigation from '../hooks/useGalleryNavigation';
+import useGalleryScrollLock from '../hooks/useGalleryScrollLock';
 import SiteFooter from '../components/SiteFooter';
 import { useLanguage } from '../i18n';
 
@@ -298,6 +300,8 @@ const Stills: React.FC = () => {
 
   const activeStill = activeStillId ? filteredStills[activeIndex] : null;
 
+  useGalleryScrollLock(Boolean(activeStill));
+
   const setFilter = (tag: string) => {
     setSelectedTag(tag);
     setActiveStillId(null);
@@ -312,6 +316,8 @@ const Stills: React.FC = () => {
     setActiveStillId(filteredStills[nextIndex].id);
   }, [activeIndex, filteredStills]);
 
+  const { isMobile, swipeHandlers } = useGalleryNavigation(moveCarousel);
+
   const selectStill = (stillId: string) => {
     setActiveStillId(stillId);
   };
@@ -320,9 +326,6 @@ const Stills: React.FC = () => {
     if (!activeStill) {
       return undefined;
     }
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -341,7 +344,6 @@ const Stills: React.FC = () => {
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [activeStill, moveCarousel]);
@@ -380,7 +382,7 @@ const Stills: React.FC = () => {
           </label>
         </header>
 
-        <section className="stills-field" aria-label="Still placeholders">
+        <section className="stills-field" aria-label={language === 'ja' ? 'スチル一覧' : 'Still photographs'}>
           {filteredStills.map((still, index) => (
             <button
               key={still.id}
@@ -389,7 +391,7 @@ const Stills: React.FC = () => {
               style={getFloatStyle(index)}
               onClick={() => selectStill(still.id)}
             >
-              <img src={still.src} alt={formatStillDate(still.dateTaken)} draggable={false} />
+              <img width={still.orientation === 'portrait' ? 800 : 1600} height={still.orientation === 'portrait' ? 1000 : 1050} src={still.src} alt={still.alt[language]} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable={false} />
               <span className="stills-tile__meta">
                 <strong>{formatStillDate(still.dateTaken)}</strong>
                 <small>{formatStillTags(still)}</small>
@@ -422,10 +424,12 @@ const Stills: React.FC = () => {
             >
               ‹
             </button>
-            <div className="stills-carousel__stage">
+            <span className="gallery-count" aria-live="polite">{activeIndex + 1} / {filteredStills.length}</span>
+            <div className="stills-carousel__stage" {...swipeHandlers}>
               {filteredStills.map((still, index) => {
                 const offset = getCircularOffset(index, activeIndex, filteredStills.length);
-                const isVisible = Math.abs(offset) <= 2;
+                const isVisible = isMobile ? offset === 0 : Math.abs(offset) <= 2;
+                if (!isVisible) return null;
 
                 return (
                   <button
@@ -434,11 +438,11 @@ const Stills: React.FC = () => {
                     className={`stills-carousel__card${offset === 0 ? ' stills-carousel__card--active' : ''}${still.orientation === 'portrait' ? ' stills-carousel__card--portrait' : ''}${still.cropMode === 'zoom' ? ' stills-carousel__card--zoom-crop' : ''}`}
                     style={{ '--still-offset': offset } as React.CSSProperties}
                     onClick={() => selectStill(still.id)}
-                    aria-label={formatStillDate(still.dateTaken)}
+                    aria-label={still.alt[language]}
                     aria-hidden={!isVisible}
                     tabIndex={isVisible ? 0 : -1}
                   >
-                    <img src={still.src} alt={formatStillDate(still.dateTaken)} draggable={false} />
+                    <img src={still.src} alt={still.alt[language]} draggable={false} />
                   </button>
                 );
               })}

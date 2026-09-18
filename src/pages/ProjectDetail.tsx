@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import useGalleryNavigation from '../hooks/useGalleryNavigation';
+import useGalleryScrollLock from '../hooks/useGalleryScrollLock';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import SiteFooter from '../components/SiteFooter';
 import YoutubePlayer from '../components/YoutubePlayer';
@@ -36,6 +39,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
     (frame): frame is typeof frame & { src: string } => Boolean(frame.src),
   ) || [];
 
+  const { isMobile, swipeHandlers } = useGalleryNavigation((direction) => {
+    setActiveFrameIndex((index) => index === null ? null :
+      (index + direction + galleryFrames.length) % galleryFrames.length);
+  });
+
+  useGalleryScrollLock(activeFrameIndex !== null);
+
   useEffect(() => {
     if (activeFrameIndex === null) {
       return undefined;
@@ -60,11 +70,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
       }
     };
 
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [activeFrameIndex, galleryFrames.length]);
@@ -257,7 +265,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
           </>
         )}
 
-        {activeFrame ? (
+        {activeFrame ? createPortal(
           <div
             className="project-detail__lightbox project-detail__lightbox--carousel"
             role="dialog"
@@ -293,10 +301,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
                 &#8249;
               </button>
             ) : null}
-            <div className="project-detail__lightbox-stage">
+            <span className="gallery-count" aria-live="polite">{activeGalleryIndex + 1} / {galleryFrames.length}</span>
+            <div className="project-detail__lightbox-stage" {...swipeHandlers}>
               {galleryFrames.map((frame, index) => {
                 const offset = getCircularOffset(index, activeGalleryIndex, galleryFrames.length);
-                const isVisible = Math.abs(offset) <= 2;
+                const isVisible = isMobile ? offset === 0 : Math.abs(offset) <= 2;
+                if (!isVisible) return null;
 
                 return (
                   <button
@@ -329,7 +339,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
                 &#8250;
               </button>
             ) : null}
-          </div>
+          </div>,
+          document.body,
         ) : null}
 
         <SiteFooter />

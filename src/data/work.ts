@@ -73,6 +73,18 @@ export const workCategories: WorkCategory[] = [
         ),
         videoType: 'vimeo',
         videoUrl: 'https://vimeo.com/1213108065?share=copy&fl=sv&fe=ci',
+        videos: [
+          {
+            title: localized('Aigamo Kazoku Trailer', 'アイガモ家族 予告編'),
+            videoType: 'vimeo',
+            videoUrl: 'https://vimeo.com/1213108065?share=copy&fl=sv&fe=ci',
+          },
+          {
+            title: localized('Aigamo Kazoku — Additional Video', 'アイガモ家族 — 関連動画'),
+            videoType: 'youtube',
+            videoUrl: 'https://youtu.be/lijVS9eWV9c',
+          },
+        ],
         thumbnail: {
           src: `${assetPrefix}/Still 2026-07-26 162114_2.8.1.jpg`,
           alt: localized('Aigamo Documentary preview', 'アイガモ・ドキュメンタリーのプレビュー'),
