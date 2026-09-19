@@ -21,12 +21,20 @@ export const getLocalizedText = (text: LocalizedText, language: Language) => tex
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
-    const storedLanguage = window.localStorage.getItem(STORAGE_KEY);
-    return storedLanguage === 'ja' ? 'ja' : 'en';
+    try {
+      return window.localStorage.getItem(STORAGE_KEY) === 'ja' ? 'ja' : 'en';
+    } catch {
+      // Storage can be disabled by browser privacy settings.
+      return 'en';
+    }
   });
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, language);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, language);
+    } catch {
+      // Keep language switching available even when preferences cannot be saved.
+    }
     document.documentElement.lang = language === 'ja' ? 'ja' : 'en';
   }, [language]);
 

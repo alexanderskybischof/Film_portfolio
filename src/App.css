@@ -708,11 +708,6 @@ select {
   filter: saturate(0.72) brightness(0.76);
 }
 
-.stills-carousel__card[aria-hidden='true'] {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .stills-carousel__card:hover {
   border-color: rgba(255, 255, 255, 0.78);
   filter: saturate(0.94) brightness(1);
@@ -743,8 +738,7 @@ select {
   object-position: center;
 }
 
-.stills-carousel__card--zoom-crop img,
-.stills-tile--zoom-crop img {
+.stills-carousel__card--zoom-crop img {
   object-fit: cover;
   object-position: center;
 }
@@ -811,73 +805,43 @@ select {
 }
 
 .stills-field {
+  --stills-row-gap: 40px;
   position: relative;
   z-index: 4;
-  display: block;
-  column-count: 4;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1px;
+  align-items: start;
   column-gap: 24px;
   margin-top: 24px;
   padding: 8px 0 46px;
 }
 
+.stills-item {
+  min-width: 0;
+}
+
 .stills-tile {
   --float-rotate: 0deg;
   --float-delay: 0s;
-  --float-x: 0;
+  --float-x: 0px;
   --float-y: 18px;
-  display: inline-block;
-  break-inside: avoid;
+  display: block;
   position: relative;
   width: 100%;
   min-width: 0;
-  max-width: none;
-  aspect-ratio: 16 / 10.5;
-  margin: 0 0 24px;
+  min-height: 0;
+  margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
   color: #fff;
   overflow: visible;
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.4);
   opacity: 1;
   transform: rotate(var(--float-rotate));
-  transition: transform 0.28s ease, border-color 0.28s ease, filter 0.28s ease, box-shadow 0.28s ease;
-  animation:
-    stillsTileReveal 0.72s ease-out forwards,
-    stillsFloat 8.8s linear infinite alternate;
-  animation-delay: var(--stills-reveal-delay), var(--float-delay);
-}
-
-.stills-tile--portrait {
-  aspect-ratio: 4 / 5;
-}
-
-.stills-tile--aquarium-corner {
-  margin-top: 16px;
-}
-
-.stills-tile:nth-child(7n + 2) {
-  margin-top: 8px;
-}
-
-.stills-tile:nth-child(7n + 4) {
-  margin-top: 14px;
-}
-
-.stills-tile:nth-child(7n + 6) {
-  margin-top: 0;
-}
-
-.stills-tile:nth-child(11n + 3) {
-  margin-top: 18px;
-}
-
-.stills-tile:nth-child(11n + 7) {
-  margin-top: 6px;
-}
-
-.stills-tile:nth-child(11n + 10) {
-  margin-top: 12px;
+  transition: transform 0.28s ease, filter 0.28s ease;
+  animation: stillsFloat 8.8s linear infinite alternate;
+  animation-delay: var(--float-delay);
 }
 
 .stills-tile:hover {
@@ -930,6 +894,7 @@ select {
   text-align: right;
 }
 
+/* Float independently of hover transforms; images always remain opaque. */
 @keyframes stillsFloat {
   from {
     translate: 0 0;
@@ -940,22 +905,16 @@ select {
   }
 }
 
-@keyframes stillsTileReveal {
-  from {
-    opacity: 0;
-    transform: translateY(26px) rotate(var(--float-rotate));
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(var(--float-rotate));
-  }
-}
-
 .stills-tile > img {
+  height: auto;
+  aspect-ratio: 16 / 10.5;
   border: 1px solid rgba(255, 255, 255, 0.38);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.4);
   transition: border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.stills-tile--portrait > img {
+  aspect-ratio: 4 / 5;
 }
 
 .stills-tile:hover > img,
@@ -970,19 +929,7 @@ select {
   }
 
   .stills-field {
-    column-count: 5;
-  }
-}
-
-@media (max-width: 1100px) {
-  .stills-field {
-    column-count: 3;
-  }
-}
-
-@media (max-width: 760px) {
-  .stills-field {
-    column-count: 2;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
@@ -1987,23 +1934,15 @@ select {
   }
 }
 
-/* Keep touch galleries independent of column fragmentation and reveal animations. */
+/* Touch layouts keep captions visible and avoid hover movement. */
 @media (max-width: 1100px), (pointer: coarse) {
   .stills-field {
-    display: grid;
+    --stills-row-gap: 28px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    gap: 28px 24px;
-    column-count: auto;
     margin-top: 28px;
   }
 
   .stills-tile {
-    display: block;
-    min-height: 0;
-    aspect-ratio: auto;
-    margin: 0;
-    opacity: 1;
     transform: none;
     translate: none;
     animation: none;
@@ -2011,29 +1950,6 @@ select {
 
   .stills-tile:hover {
     transform: none;
-  }
-
-  .stills-tile > img {
-    height: auto;
-    aspect-ratio: 16 / 10.5;
-  }
-
-  .stills-tile--portrait > img {
-    aspect-ratio: 4 / 5;
-  }
-
-  .stills-tile--portrait {
-    width: 100%;
-  }
-
-  .stills-tile--aquarium-corner,
-  .stills-tile:nth-child(7n + 2),
-  .stills-tile:nth-child(7n + 4),
-  .stills-tile:nth-child(7n + 6),
-  .stills-tile:nth-child(11n + 3),
-  .stills-tile:nth-child(11n + 7),
-  .stills-tile:nth-child(11n + 10) {
-    margin-top: 0;
   }
 
   .stills-tile__meta {
@@ -2064,5 +1980,20 @@ select {
 @media (max-width: 700px) {
   .stills-field {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stills-stars,
+  .stills-tile,
+  .stills-carousel {
+    animation: none;
+  }
+
+  .stills-tile,
+  .stills-tile > img,
+  .stills-tile__meta,
+  .stills-carousel__card {
+    transition: none;
   }
 }

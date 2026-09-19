@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import useGalleryNavigation from '../hooks/useGalleryNavigation';
 import useGalleryScrollLock from '../hooks/useGalleryScrollLock';
@@ -7,216 +7,64 @@ import { useLanguage } from '../i18n';
 
 type Still = {
   id: string;
-  title: {
-    en: string;
-    ja: string;
-  };
-  dateTaken?: string;
+  dateTaken: string;
   src: string;
   alt: {
     en: string;
     ja: string;
   };
   tags: string[];
-  orientation?: 'portrait' | 'landscape';
+  orientation?: 'portrait';
   cropMode?: 'zoom';
 };
 
 const tagOrder = ['event', 'food', 'doc', 'outdoors', 'indoors', 'commercial'];
 
-const stillDisplayOrder = [
-  'kyodai-01',
-  'kyodai-07',
-  'kyodai-09',
-  'kyodai-10',
-  'sydney-harbour-2026-09-15',
-  'aigamo-2026-06-26',
-  'kuro-sydney-2026-04-19-01',
-  'jsa-gm1-2026-09-15-010',
-  'hoka-2026-03-15-01',
-  'kuro-sydney-2026-04-19-02',
-  'mountain-overlook-2026-08-22',
-  'unknown-location-2024-06-28-01',
-  'jsa-gm1-2026-09-15-014',
-  'aigamo-2026-07-26',
-  'classroom-2026-09-03',
-  'unknown-location-2026-08-22',
-  'katoomba-falls-2026-01-29-01',
-  'hoka-2026-03-15-02',
-  'katoomba-falls-2026-01-29-02',
-  'kuro-sydney-2026-04-19-03',
-  'mountain-trail-2026-08-22',
-];
-
 const stills: Still[] = [
   {
-    id: 'kyodai-01',
-    title: { en: 'Kyodai 01', ja: 'Kyodai 01' },
-    src: '/Kyodai1 - 01.jpg',
-    alt: { en: 'Kyodai event, photo 01', ja: 'Kyodaiイベント、写真01' },
-    tags: ['event', 'indoors'],
-  },
-  {
-    id: 'kyodai-07',
-    title: { en: 'Kyodai 07', ja: 'Kyodai 07' },
-    src: '/Kyodai1 - 07.jpg',
-    alt: { en: 'Kyodai event, photo 07', ja: 'Kyodaiイベント、写真07' },
-    tags: ['event', 'indoors'],
-  },
-  {
-    id: 'kyodai-09',
-    title: { en: 'Kyodai 09', ja: 'Kyodai 09' },
-    src: '/Kyodai1 - 09.jpg',
-    alt: { en: 'Kyodai event, photo 09', ja: 'Kyodaiイベント、写真09' },
-    tags: ['event', 'indoors'],
-  },
-  {
-    id: 'kyodai-10',
-    title: { en: 'Kyodai 10', ja: 'Kyodai 10' },
-    src: '/Kyodai1 - 10.jpg',
-    alt: { en: 'Kyodai event, photo 10', ja: 'Kyodaiイベント、写真10' },
-    tags: ['event', 'indoors'],
-  },
-
-
-  {
-    id: 'unknown-location-2024-06-28-02',
-    title: { en: 'Unknown Location, June 28, 2024', ja: 'Unknown Location, 2024年6月28日' },
-    dateTaken: '2024-06-28',
-    src: '/DSCF0065.JPG',
-    alt: { en: 'Unknown Location, June 28, 2024', ja: 'Unknown Location, 2024年6月28日' },
-    tags: ['outdoors', 'doc'],
-  },
-  {
-    id: 'katoomba-falls-2026-01-29-01',
-    title: { en: 'Katoomba Falls, January 29, 2026', ja: 'Katoomba Falls, 2026年1月29日' },
-    dateTaken: '2026-01-29',
-    src: '/still12.png',
-    alt: { en: 'Katoomba Falls, January 29, 2026', ja: 'Katoomba Falls, 2026年1月29日' },
+    id: 'sydney-harbour-2026-09-15',
+    dateTaken: '2026-09-15',
+    src: '/Photo Album 1 - 01.jpg',
+    alt: { en: 'Sydney Harbour, September 15, 2026', ja: 'Sydney Harbour, 2026年9月15日' },
     tags: ['outdoors'],
-    orientation: 'portrait',
-    cropMode: 'zoom',
-  },
-  {
-    id: 'katoomba-falls-2026-01-29-02',
-    title: { en: 'Katoomba Falls, January 29, 2026', ja: 'Katoomba Falls, 2026年1月29日' },
-    dateTaken: '2026-01-29',
-    src: '/still13.png',
-    alt: { en: 'Katoomba Falls, January 29, 2026', ja: 'Katoomba Falls, 2026年1月29日' },
-    tags: ['outdoors'],
-    orientation: 'portrait',
-    cropMode: 'zoom',
-  },
-  {
-    id: 'hoka-2026-03-15-01',
-    title: { en: 'HOKA Spec Ad, March 15, 2026', ja: 'HOKA Spec Ad, 2026年3月15日' },
-    dateTaken: '2026-03-15',
-    src: '/hokastill1.png',
-    alt: { en: 'HOKA Spec Ad, March 15, 2026', ja: 'HOKA Spec Ad, 2026年3月15日' },
-    tags: ['outdoors', 'commercial'],
-  },
-  {
-    id: 'hoka-2026-03-15-02',
-    title: { en: 'HOKA Spec Ad, March 15, 2026', ja: 'HOKA Spec Ad, 2026年3月15日' },
-    dateTaken: '2026-03-15',
-    src: '/hokastill2.png',
-    alt: { en: 'HOKA Spec Ad, March 15, 2026', ja: 'HOKA Spec Ad, 2026年3月15日' },
-    tags: ['outdoors', 'commercial'],
-  },
-  {
-    id: 'kuro-sydney-2026-04-19-01',
-    title: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
-    dateTaken: '2026-04-19',
-    src: '/Kuro1.jpg',
-    alt: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
-    tags: ['food', 'indoors', 'commercial'],
-  },
-  {
-    id: 'kuro-sydney-2026-04-19-02',
-    title: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
-    dateTaken: '2026-04-19',
-    src: '/Kuro2.jpg',
-    alt: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
-    tags: ['food', 'indoors', 'commercial'],
-  },
-  {
-    id: 'kuro-sydney-2026-04-19-03',
-    title: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
-    dateTaken: '2026-04-19',
-    src: '/Kuro3.jpg',
-    alt: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
-    tags: ['food', 'indoors', 'commercial'],
   },
   {
     id: 'aigamo-2026-06-26',
-    title: { en: 'Aigamo Documentary, June 26, 2026', ja: 'Aigamo Documentary, 2026年6月26日' },
     dateTaken: '2026-06-26',
     src: '/aigamod1.png',
     alt: { en: 'Aigamo Documentary, June 26, 2026', ja: 'Aigamo Documentary, 2026年6月26日' },
     tags: ['outdoors', 'doc'],
   },
   {
-    id: 'aigamo-2026-07-18',
-    title: { en: 'Aigamo Documentary, July 18, 2026', ja: 'Aigamo Documentary, 2026年7月18日' },
-    dateTaken: '2026-07-18',
-    src: '/Still+2026-07-18+234828_2.3.2.webp',
-    alt: { en: 'Aigamo Documentary, July 18, 2026', ja: 'Aigamo Documentary, 2026年7月18日' },
-    tags: ['outdoors', 'doc'],
+    id: 'kuro-sydney-2026-04-19-01',
+    dateTaken: '2026-04-19',
+    src: '/Kuro1.jpg',
+    alt: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
+    tags: ['food', 'indoors', 'commercial'],
   },
-  {
-    id: 'aigamo-2026-07-26',
-    title: { en: 'Aigamo Documentary, July 26, 2026', ja: 'Aigamo Documentary, 2026年7月26日' },
-    dateTaken: '2026-07-26',
-    src: '/Still 2026-07-26 161432_1.1.1.jpg',
-    alt: { en: 'Aigamo Documentary, July 26, 2026', ja: 'Aigamo Documentary, 2026年7月26日' },
-    tags: ['outdoors', 'doc'],
-  },
-  {
-    id: 'sydney-harbour-2026-09-15',
-    title: { en: 'Sydney Harbour, September 15, 2026', ja: 'Sydney Harbour, 2026年9月15日' },
-    dateTaken: '2026-09-15',
-    src: '/Photo Album 1 - 01.jpg',
-    alt: { en: 'Sydney Harbour, September 15, 2026', ja: 'Sydney Harbour, 2026年9月15日' },
-    tags: ['outdoors'],
-  },
-
   {
     id: 'jsa-gm1-2026-09-15-010',
-    title: { en: 'JSA GM1, September 15, 2026', ja: 'JSA GM1, 2026年9月15日' },
     dateTaken: '2026-09-15',
     src: '/JSA GM1 - 010.jpg',
     alt: { en: 'JSA GM1, September 15, 2026', ja: 'JSA GM1, 2026年9月15日' },
     tags: ['event', 'indoors'],
   },
   {
-    id: 'jsa-gm1-2026-09-15-014',
-    title: { en: 'JSA GM1, September 15, 2026', ja: 'JSA GM1, 2026年9月15日' },
-    dateTaken: '2026-09-15',
-    src: '/JSA GM1 - 014.jpg',
-    alt: { en: 'JSA GM1, September 15, 2026', ja: 'JSA GM1, 2026年9月15日' },
+    id: 'kyodai-01',
+    dateTaken: '2026-09-19',
+    src: '/Kyodai1 - 01.jpg',
+    alt: { en: 'Kyodai event, photo 01', ja: 'Kyodaiイベント、写真01' },
     tags: ['event', 'indoors'],
   },
   {
-    id: 'classroom-2026-09-03',
-    title: { en: 'Classroom, September 3, 2026', ja: 'Classroom, 2026年9月3日' },
-    dateTaken: '2026-09-03',
-    src: '/Photo Album 1 - 03.jpg',
-    alt: { en: 'Classroom, September 3, 2026', ja: 'Classroom, 2026年9月3日' },
-    tags: ['event', 'indoors'],
-    orientation: 'portrait',
-  },
-  {
-    id: 'jeff-karate-2026-08-22',
-    title: { en: 'Karate Class, August 22, 2026', ja: 'Karate Class, 2026年8月22日' },
-    dateTaken: '2026-08-22',
-    src: '/Jeff Karate Class 8.22 - 00000029.jpg',
-    alt: { en: 'Karate Class, August 22, 2026', ja: 'Karate Class, 2026年8月22日' },
-    tags: ['event', 'indoors', 'doc'],
-    orientation: 'portrait',
+    id: 'hoka-2026-03-15-01',
+    dateTaken: '2026-03-15',
+    src: '/hokastill1.png',
+    alt: { en: 'HOKA Spec Ad, March 15, 2026', ja: 'HOKA Spec Ad, 2026年3月15日' },
+    tags: ['outdoors', 'commercial'],
   },
   {
     id: 'mountain-overlook-2026-08-22',
-    title: { en: 'Mountain Overlook, August 22, 2026', ja: 'Mountain Overlook, 2026年8月22日' },
     dateTaken: '2026-08-22',
     src: '/Still 2026-08-22 000904_2.1.1.jpg',
     alt: { en: 'Mountain Overlook, August 22, 2026', ja: 'Mountain Overlook, 2026年8月22日' },
@@ -225,8 +73,97 @@ const stills: Still[] = [
     cropMode: 'zoom',
   },
   {
+    id: 'kyodai-07',
+    dateTaken: '2026-09-19',
+    src: '/Kyodai1 - 07.jpg',
+    alt: { en: 'Kyodai event, photo 07', ja: 'Kyodaiイベント、写真07' },
+    tags: ['event', 'indoors'],
+  },
+  {
+    id: 'kuro-sydney-2026-04-19-02',
+    dateTaken: '2026-04-19',
+    src: '/Kuro2.jpg',
+    alt: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
+    tags: ['food', 'indoors', 'commercial'],
+  },
+  {
+    id: 'jsa-gm1-2026-09-15-014',
+    dateTaken: '2026-09-15',
+    src: '/JSA GM1 - 014.jpg',
+    alt: { en: 'JSA GM1, September 15, 2026', ja: 'JSA GM1, 2026年9月15日' },
+    tags: ['event', 'indoors'],
+  },
+  {
+    id: 'kyodai-09',
+    dateTaken: '2026-09-19',
+    src: '/Kyodai1 - 09.jpg',
+    alt: { en: 'Kyodai event, photo 09', ja: 'Kyodaiイベント、写真09' },
+    tags: ['event', 'indoors'],
+  },
+  {
+    id: 'aigamo-2026-07-26',
+    dateTaken: '2026-07-26',
+    src: '/Still 2026-07-26 161432_1.1.1.jpg',
+    alt: { en: 'Aigamo Documentary, July 26, 2026', ja: 'Aigamo Documentary, 2026年7月26日' },
+    tags: ['outdoors', 'doc'],
+  },
+  {
+    id: 'classroom-2026-09-03',
+    dateTaken: '2026-09-03',
+    src: '/Photo Album 1 - 03.jpg',
+    alt: { en: 'Classroom, September 3, 2026', ja: 'Classroom, 2026年9月3日' },
+    tags: ['event', 'indoors'],
+    orientation: 'portrait',
+  },
+  {
+    id: 'unknown-location-2026-08-22',
+    dateTaken: '2026-08-22',
+    src: '/Still 2026-08-22 003814_1.19.1.jpg',
+    alt: { en: 'Unknown Location, August 22, 2026', ja: 'Unknown Location, 2026年8月22日' },
+    tags: ['outdoors'],
+    orientation: 'portrait',
+  },
+  {
+    id: 'katoomba-falls-2026-01-29-01',
+    dateTaken: '2026-01-29',
+    src: '/still12.png',
+    alt: { en: 'Katoomba Falls, January 29, 2026', ja: 'Katoomba Falls, 2026年1月29日' },
+    tags: ['outdoors'],
+    orientation: 'portrait',
+    cropMode: 'zoom',
+  },
+  {
+    id: 'hoka-2026-03-15-02',
+    dateTaken: '2026-03-15',
+    src: '/hokastill2.png',
+    alt: { en: 'HOKA Spec Ad, March 15, 2026', ja: 'HOKA Spec Ad, 2026年3月15日' },
+    tags: ['outdoors', 'commercial'],
+  },
+  {
+    id: 'kyodai-10',
+    dateTaken: '2026-09-19',
+    src: '/Kyodai1 - 10.jpg',
+    alt: { en: 'Kyodai event, photo 10', ja: 'Kyodaiイベント、写真10' },
+    tags: ['event', 'indoors'],
+  },
+  {
+    id: 'katoomba-falls-2026-01-29-02',
+    dateTaken: '2026-01-29',
+    src: '/still13.png',
+    alt: { en: 'Katoomba Falls, January 29, 2026', ja: 'Katoomba Falls, 2026年1月29日' },
+    tags: ['outdoors'],
+    orientation: 'portrait',
+    cropMode: 'zoom',
+  },
+  {
+    id: 'kuro-sydney-2026-04-19-03',
+    dateTaken: '2026-04-19',
+    src: '/Kuro3.jpg',
+    alt: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
+    tags: ['food', 'indoors', 'commercial'],
+  },
+  {
     id: 'mountain-trail-2026-08-22',
-    title: { en: 'Mountain Trail, August 22, 2026', ja: 'Mountain Trail, 2026年8月22日' },
     dateTaken: '2026-08-22',
     src: '/Still 2026-08-22 010811_4.1.1.jpg',
     alt: { en: 'Mountain Trail, August 22, 2026', ja: 'Mountain Trail, 2026年8月22日' },
@@ -234,20 +171,9 @@ const stills: Still[] = [
     orientation: 'portrait',
     cropMode: 'zoom',
   },
-  {
-    id: 'unknown-location-2026-08-22',
-    title: { en: 'Unknown Location, August 22, 2026', ja: 'Unknown Location, 2026年8月22日' },
-    dateTaken: '2026-08-22',
-    src: '/Still 2026-08-22 003814_1.19.1.jpg',
-    alt: { en: 'Unknown Location, August 22, 2026', ja: 'Unknown Location, 2026年8月22日' },
-    tags: ['outdoors'],
-    orientation: 'portrait',
-  },
 ];
 
-const orderedStills = stillDisplayOrder
-  .map((id) => stills.find((still) => still.id === id))
-  .filter((still): still is Still => Boolean(still));
+const tagLabels = ['all', ...tagOrder.filter((tag) => stills.some((still) => still.tags.includes(tag)))];
 
 const formatStillDate = (dateTaken: string) => {
   const [year, month, day] = dateTaken.split('-');
@@ -255,13 +181,8 @@ const formatStillDate = (dateTaken: string) => {
   return `${Number(month)}/${Number(day)}/${year}`;
 };
 
-const formatStillTags = (still: Still) => {
-  const tags = still.id.startsWith('katoomba-falls')
-    ? still.tags.filter((tag) => tag !== 'doc')
-    : still.tags;
-
-  return [...tags].sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b)).join(' / ');
-};
+const formatStillTags = (still: Still) =>
+  [...still.tags].sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b)).join(' / ');
 
 const getCircularOffset = (index: number, activeIndex: number, total: number) => {
   const rawOffset = index - activeIndex;
@@ -299,7 +220,6 @@ const getFloatStyle = (index: number) => {
     '--float-delay': transform.delay,
     '--float-x': transform.floatX,
     '--float-y': transform.floatY,
-    '--stills-reveal-delay': `${Math.min(index * 0.018, 0.72)}s`,
   } as React.CSSProperties;
 };
 
@@ -307,26 +227,40 @@ const getTileClassName = (still: Still) =>
   [
     'stills-tile',
     still.orientation === 'portrait' ? 'stills-tile--portrait' : '',
-    still.cropMode === 'zoom' ? 'stills-tile--zoom-crop' : '',
-    still.id === 'jsa-gm1-2026-09-15-014' ? 'stills-tile--aquarium-corner' : '',
   ]
     .filter(Boolean)
     .join(' ');
-
 
 const Stills: React.FC = () => {
   const { language } = useLanguage();
   const [selectedTag, setSelectedTag] = useState('all');
   const [activeStillId, setActiveStillId] = useState<string | null>(null);
+  const galleryRef = useRef<HTMLElement>(null);
 
-  const tagLabels = useMemo(
-    () => ['all', ...tagOrder.filter((tag) => stills.some((still) => still.tags.includes(tag)))],
-    [],
-  );
   const filteredStills = useMemo(
-    () => orderedStills.filter((still) => selectedTag === 'all' || still.tags.includes(selectedTag)),
+    () => stills.filter((still) => selectedTag === 'all' || still.tags.includes(selectedTag)),
     [selectedTag],
   );
+
+  useLayoutEffect(() => {
+    const gallery = galleryRef.current;
+    if (!gallery) return;
+
+    // Measure the untransformed photo height so floating never changes layout.
+    const sizeItem = (tile: HTMLElement) => {
+      const gap = parseFloat(getComputedStyle(gallery).getPropertyValue('--stills-row-gap'));
+      tile.parentElement!.style.gridRowEnd = `span ${Math.ceil(tile.offsetHeight + gap)}`;
+    };
+    const observer = new ResizeObserver((entries) => {
+      entries.forEach(({ target }) => sizeItem(target as HTMLElement));
+    });
+    gallery.querySelectorAll<HTMLElement>('.stills-tile').forEach((tile) => {
+      sizeItem(tile);
+      observer.observe(tile);
+    });
+
+    return () => observer.disconnect();
+  }, [filteredStills]);
 
   const activeIndex = Math.max(0, filteredStills.findIndex((still) => still.id === activeStillId));
 
@@ -414,21 +348,22 @@ const Stills: React.FC = () => {
           </label>
         </header>
 
-        <section className="stills-field" aria-label={language === 'ja' ? 'スチル一覧' : 'Still photographs'}>
+        <section ref={galleryRef} className="stills-field" aria-label={language === 'ja' ? 'スチル一覧' : 'Still photographs'}>
           {filteredStills.map((still, index) => (
-            <button
-              key={still.id}
-              type="button"
-              className={getTileClassName(still)}
-              style={getFloatStyle(index)}
-              onClick={() => selectStill(still.id)}
-            >
-              <img width={still.orientation === 'portrait' ? 800 : 1600} height={still.orientation === 'portrait' ? 1000 : 1050} src={still.src} alt={still.alt[language]} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable={false} />
-              <span className="stills-tile__meta">
-                <strong>{still.dateTaken ? formatStillDate(still.dateTaken) : still.title[language]}</strong>
-                <small>{formatStillTags(still)}</small>
-              </span>
-            </button>
+            <div className="stills-item" key={still.id}>
+              <button
+                type="button"
+                className={getTileClassName(still)}
+                style={getFloatStyle(index)}
+                onClick={() => selectStill(still.id)}
+              >
+                <img width={still.orientation === 'portrait' ? 800 : 1600} height={still.orientation === 'portrait' ? 1000 : 1050} src={still.src} alt={still.alt[language]} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable={false} />
+                <span className="stills-tile__meta">
+                  <strong>{formatStillDate(still.dateTaken)}</strong>
+                  <small>{formatStillTags(still)}</small>
+                </span>
+              </button>
+            </div>
           ))}
         </section>
 
@@ -471,8 +406,6 @@ const Stills: React.FC = () => {
                     style={{ '--still-offset': offset } as React.CSSProperties}
                     onClick={() => selectStill(still.id)}
                     aria-label={still.alt[language]}
-                    aria-hidden={!isVisible}
-                    tabIndex={isVisible ? 0 : -1}
                   >
                     <img src={still.src} alt={still.alt[language]} draggable={false} />
                   </button>
