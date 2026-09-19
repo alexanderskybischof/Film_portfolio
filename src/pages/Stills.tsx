@@ -11,7 +11,7 @@ type Still = {
     en: string;
     ja: string;
   };
-  dateTaken: string;
+  dateTaken?: string;
   src: string;
   alt: {
     en: string;
@@ -25,6 +25,10 @@ type Still = {
 const tagOrder = ['event', 'food', 'doc', 'outdoors', 'indoors', 'commercial'];
 
 const stillDisplayOrder = [
+  'kyodai-01',
+  'kyodai-07',
+  'kyodai-09',
+  'kyodai-10',
   'sydney-harbour-2026-09-15',
   'aigamo-2026-06-26',
   'kuro-sydney-2026-04-19-01',
@@ -45,6 +49,34 @@ const stillDisplayOrder = [
 ];
 
 const stills: Still[] = [
+  {
+    id: 'kyodai-01',
+    title: { en: 'Kyodai 01', ja: 'Kyodai 01' },
+    src: '/Kyodai1 - 01.jpg',
+    alt: { en: 'Kyodai event, photo 01', ja: 'Kyodaiイベント、写真01' },
+    tags: ['event', 'indoors'],
+  },
+  {
+    id: 'kyodai-07',
+    title: { en: 'Kyodai 07', ja: 'Kyodai 07' },
+    src: '/Kyodai1 - 07.jpg',
+    alt: { en: 'Kyodai event, photo 07', ja: 'Kyodaiイベント、写真07' },
+    tags: ['event', 'indoors'],
+  },
+  {
+    id: 'kyodai-09',
+    title: { en: 'Kyodai 09', ja: 'Kyodai 09' },
+    src: '/Kyodai1 - 09.jpg',
+    alt: { en: 'Kyodai event, photo 09', ja: 'Kyodaiイベント、写真09' },
+    tags: ['event', 'indoors'],
+  },
+  {
+    id: 'kyodai-10',
+    title: { en: 'Kyodai 10', ja: 'Kyodai 10' },
+    src: '/Kyodai1 - 10.jpg',
+    alt: { en: 'Kyodai event, photo 10', ja: 'Kyodaiイベント、写真10' },
+    tags: ['event', 'indoors'],
+  },
 
 
   {
@@ -393,7 +425,7 @@ const Stills: React.FC = () => {
             >
               <img width={still.orientation === 'portrait' ? 800 : 1600} height={still.orientation === 'portrait' ? 1000 : 1050} src={still.src} alt={still.alt[language]} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable={false} />
               <span className="stills-tile__meta">
-                <strong>{formatStillDate(still.dateTaken)}</strong>
+                <strong>{still.dateTaken ? formatStillDate(still.dateTaken) : still.title[language]}</strong>
                 <small>{formatStillTags(still)}</small>
               </span>
             </button>
