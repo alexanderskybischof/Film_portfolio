@@ -237,7 +237,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
     </section>
   ) : (
     <section className={descriptionClassName}>
-      <p>{description || mediaComingSoon}</p>
+      <p>{mediaComingSoon}</p>
     </section>
   );
 

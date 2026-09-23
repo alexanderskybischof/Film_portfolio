@@ -39,8 +39,8 @@ const clocks: HomeClock[] = [
   },
   {
     place: {
-      en: 'San Francisco, California (last located)',
-      ja: 'アメリカ、サンフランシスコ（直前の所在地）',
+      en: 'Berkeley, CA',
+      ja: 'カリフォルニア州バークレー',
     },
     timeZone: 'America/Los_Angeles',
     latitude: 37.7749,

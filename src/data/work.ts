@@ -49,15 +49,6 @@ export const getText = (text: LocalizedText | undefined, language: Language) => 
 
 export const workCategories: WorkCategory[] = [
   {
-    slug: 'reel',
-    title: localized('Reel', 'リール'),
-    cardImage: `${assetPrefix}/reel.png`,
-    cardImageAlt: localized('Reel preview', 'リールのプレビュー'),
-    cardImageType: 'image',
-    reelVideoUrl: `${assetPrefix}/rel.mp4`,
-    projects: [],
-  },
-  {
     slug: 'short-films',
     title: localized('Short Films', '短編映画'),
     cardImage: `${assetPrefix}/Still 2026-07-26 161432_1.1.1.jpg`,
@@ -65,80 +56,95 @@ export const workCategories: WorkCategory[] = [
     cardImageObjectPosition: 'center 34%',
     projects: [
       {
-        slug: 'aigamo-documentary',
-        title: localized('Aigamo Documentary (2027)', 'アイガモ・ドキュメンタリー (2027)'),
+        slug: 'world-duck-family',
+        title: localized('World Duck Family (2027)', 'ワールド・ダック・ファミリー (2027)'),
         description: localized(
           'The Aigamo Method is a Japanese regenerative agricultural technique where ducks are used to fertilize rice fields and eliminate pests. Through stories of Vermont farmer Erik Andrus and the international “World Duck Family,” the film explores the challenges and rewards of pursuing an unconventional path in a modern food system driven by convenience. Structured around the seasonal cycle of rice farming, the documentary portrays how shared values and purpose can connect people across cultures.',
           'アイガモ農法は、アヒルを使って田んぼに肥料を与え、害虫を取り除く日本の再生型農業の手法です。バーモント州の農家エリック・アンドラスと国際的な「ワールド・ダック・ファミリー」の物語を通して、この作品は、利便性に支配された現代の食料システムの中で、型にはまらない道を選ぶことの難しさと喜びを描きます。稲作の季節の循環に沿って構成されたこのドキュメンタリーは、価値観と目的の共有が文化を越えて人々を結びつける様子を映し出します。',
+        ),
+        videoType: 'local',
+        videoUrl: '',
+        thumbnail: {
+          alt: localized('World Duck Family preview', 'ワールド・ダック・ファミリーのプレビュー'),
+          type: 'image',
+        },
+        stillFrames: [],
+      },
+      {
+        slug: 'aigamo-documentary',
+        title: localized('Aigamo Kazoku', '合鴨家族'),
+        description: localized(
+          'A short film my friends and I made a few months ago about Takao Furuno, the creator of the Aigamo Method. The Aigamo method is a sustainable agriculture technique where ducks grow in rice paddies, which help fertilize the rice fields while controlling weeds and pests.',
+          '合鴨農法の発案者、古野隆雄氏についてのこの作品。合鴨水稲同時作とは、水田に合鴨のヒナを放し飼いにし、農薬や化学肥料を使わずに安全な米と合鴨を同時に育てる自然循環型の有機農業です。',
         ),
         videoType: 'vimeo',
         videoUrl: 'https://vimeo.com/1213108065?share=copy&fl=sv&fe=ci',
         videos: [
           {
-            title: localized('Aigamo Kazoku Trailer', 'アイガモ家族 予告編'),
+            title: localized('Aigamo Kazoku Trailer', '合鴨家族 予告編'),
             videoType: 'vimeo',
             videoUrl: 'https://vimeo.com/1213108065?share=copy&fl=sv&fe=ci',
           },
           {
-            title: localized('Aigamo Kazoku — Additional Video', 'アイガモ家族 — 関連動画'),
+            title: localized('Aigamo Kazoku — Additional Video', '合鴨家族 — 関連動画'),
             videoType: 'youtube',
             videoUrl: 'https://youtu.be/lijVS9eWV9c',
           },
         ],
         thumbnail: {
           src: `${assetPrefix}/Still 2026-07-26 162114_2.8.1.jpg`,
-          alt: localized('Aigamo Documentary preview', 'アイガモ・ドキュメンタリーのプレビュー'),
+          alt: localized('Aigamo Kazoku preview', '合鴨家族のプレビュー'),
           type: 'image',
           objectPosition: 'center 16%',
         },
         stillFrames: [
           {
             src: `${assetPrefix}/aigamod1.png`,
-            alt: localized('Aigamo Documentary still frame 1', 'アイガモ・ドキュメンタリーのスチル 1'),
+            alt: localized('Aigamo Kazoku still frame 1', '合鴨家族のスチル 1'),
           },
           {
             src: `${assetPrefix}/aigamodoc2.png`,
-            alt: localized('Aigamo Documentary still frame 2', 'アイガモ・ドキュメンタリーのスチル 2'),
+            alt: localized('Aigamo Kazoku still frame 2', '合鴨家族のスチル 2'),
           },
           {
             src: `${assetPrefix}/aigamodo3.png`,
-            alt: localized('Aigamo Documentary still frame 3', 'アイガモ・ドキュメンタリーのスチル 3'),
+            alt: localized('Aigamo Kazoku still frame 3', '合鴨家族のスチル 3'),
           },
           {
             src: `${assetPrefix}/aigamodoc4.png`,
-            alt: localized('Aigamo Documentary still frame 4', 'アイガモ・ドキュメンタリーのスチル 4'),
+            alt: localized('Aigamo Kazoku still frame 4', '合鴨家族のスチル 4'),
           },
           {
             src: `${assetPrefix}/Still+2026-07-18+234828_2.1.1.webp`,
-            alt: localized('Aigamo Documentary still frame 5', 'アイガモ・ドキュメンタリーのスチル 5'),
+            alt: localized('Aigamo Kazoku still frame 5', '合鴨家族のスチル 5'),
           },
           {
             src: `${assetPrefix}/Still+2026-07-18+234828_2.3.2.webp`,
-            alt: localized('Aigamo Documentary still frame 6', 'アイガモ・ドキュメンタリーのスチル 6'),
+            alt: localized('Aigamo Kazoku still frame 6', '合鴨家族のスチル 6'),
           },
           {
             src: `${assetPrefix}/Still+2026-07-18+234828_3.6.1.webp`,
-            alt: localized('Aigamo Documentary still frame 7', 'アイガモ・ドキュメンタリーのスチル 7'),
+            alt: localized('Aigamo Kazoku still frame 7', '合鴨家族のスチル 7'),
           },
           {
             src: `${assetPrefix}/Still+2026-07-18+235445_1.1.1.webp`,
-            alt: localized('Aigamo Documentary still frame 8', 'アイガモ・ドキュメンタリーのスチル 8'),
+            alt: localized('Aigamo Kazoku still frame 8', '合鴨家族のスチル 8'),
           },
           {
             src: `${assetPrefix}/Still 2026-07-26 161432_1.1.1.jpg`,
-            alt: localized('Aigamo Documentary still frame 9', 'アイガモ・ドキュメンタリーのスチル 9'),
+            alt: localized('Aigamo Kazoku still frame 9', '合鴨家族のスチル 9'),
           },
           {
             src: `${assetPrefix}/Still 2026-07-26 162114_2.8.1.jpg`,
-            alt: localized('Aigamo Documentary still frame 10', 'アイガモ・ドキュメンタリーのスチル 10'),
+            alt: localized('Aigamo Kazoku still frame 10', '合鴨家族のスチル 10'),
           },
           {
             src: `${assetPrefix}/Still 2026-07-26 162114_2.15.1.jpg`,
-            alt: localized('Aigamo Documentary still frame 11', 'アイガモ・ドキュメンタリーのスチル 11'),
+            alt: localized('Aigamo Kazoku still frame 11', '合鴨家族のスチル 11'),
           },
           {
             src: `${assetPrefix}/Still 2026-07-26 162114_2.26.1.jpg`,
-            alt: localized('Aigamo Documentary still frame 12', 'アイガモ・ドキュメンタリーのスチル 12'),
+            alt: localized('Aigamo Kazoku still frame 12', '合鴨家族のスチル 12'),
           },
         ],
       },
