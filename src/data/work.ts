@@ -92,7 +92,7 @@ export const workCategories: WorkCategory[] = [
           },
         ],
         thumbnail: {
-          src: `${assetPrefix}/Still 2026-07-26 162114_2.8.1.jpg`,
+          src: `${assetPrefix}/Still 2026-09-16 201508_2.6.1.jpg`,
           alt: localized('Aigamo Kazoku preview', '合鴨家族のプレビュー'),
           type: 'image',
           objectPosition: 'center 16%',
@@ -107,44 +107,60 @@ export const workCategories: WorkCategory[] = [
             alt: localized('Aigamo Kazoku still frame 2', '合鴨家族のスチル 2'),
           },
           {
-            src: `${assetPrefix}/aigamodo3.png`,
+            src: `${assetPrefix}/Still+2026-07-18+234828_2.1.1.webp`,
             alt: localized('Aigamo Kazoku still frame 3', '合鴨家族のスチル 3'),
           },
           {
-            src: `${assetPrefix}/aigamodoc4.png`,
+            src: `${assetPrefix}/Still+2026-07-18+234828_2.3.2.webp`,
             alt: localized('Aigamo Kazoku still frame 4', '合鴨家族のスチル 4'),
           },
           {
-            src: `${assetPrefix}/Still+2026-07-18+234828_2.1.1.webp`,
+            src: `${assetPrefix}/Still+2026-07-18+234828_3.6.1.webp`,
             alt: localized('Aigamo Kazoku still frame 5', '合鴨家族のスチル 5'),
           },
           {
-            src: `${assetPrefix}/Still+2026-07-18+234828_2.3.2.webp`,
+            src: `${assetPrefix}/Still+2026-07-18+235445_1.1.1.webp`,
             alt: localized('Aigamo Kazoku still frame 6', '合鴨家族のスチル 6'),
           },
           {
-            src: `${assetPrefix}/Still+2026-07-18+234828_3.6.1.webp`,
+            src: `${assetPrefix}/Still 2026-07-26 161432_1.1.1.jpg`,
             alt: localized('Aigamo Kazoku still frame 7', '合鴨家族のスチル 7'),
           },
           {
-            src: `${assetPrefix}/Still+2026-07-18+235445_1.1.1.webp`,
+            src: `${assetPrefix}/Still 2026-07-26 162114_2.26.1.jpg`,
             alt: localized('Aigamo Kazoku still frame 8', '合鴨家族のスチル 8'),
           },
           {
-            src: `${assetPrefix}/Still 2026-07-26 161432_1.1.1.jpg`,
+            src: `${assetPrefix}/Still 2026-09-16 201508_2.6.1.jpg`,
             alt: localized('Aigamo Kazoku still frame 9', '合鴨家族のスチル 9'),
           },
           {
-            src: `${assetPrefix}/Still 2026-07-26 162114_2.8.1.jpg`,
+            src: `${assetPrefix}/Still 2026-09-16 201629_2.19.3.jpg`,
             alt: localized('Aigamo Kazoku still frame 10', '合鴨家族のスチル 10'),
           },
           {
-            src: `${assetPrefix}/Still 2026-07-26 162114_2.15.1.jpg`,
+            src: `${assetPrefix}/Still 2026-09-16 201652_2.53.1.jpg`,
             alt: localized('Aigamo Kazoku still frame 11', '合鴨家族のスチル 11'),
           },
           {
-            src: `${assetPrefix}/Still 2026-07-26 162114_2.26.1.jpg`,
+            src: `${assetPrefix}/Still 2026-09-16 201652_3.22.1.jpg`,
             alt: localized('Aigamo Kazoku still frame 12', '合鴨家族のスチル 12'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-09-16 201704_3.27.1.jpg`,
+            alt: localized('Aigamo Kazoku still frame 13', '合鴨家族のスチル 13'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-09-16 201704_4.7.1.jpg`,
+            alt: localized('Aigamo Kazoku still frame 14', '合鴨家族のスチル 14'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-09-16 201710_4.10.2.jpg`,
+            alt: localized('Aigamo Kazoku still frame 15', '合鴨家族のスチル 15'),
+          },
+          {
+            src: `${assetPrefix}/Still 2026-09-16 201827_2.15.1.jpg`,
+            alt: localized('Aigamo Kazoku still frame 16', '合鴨家族のスチル 16'),
           },
         ],
       },
