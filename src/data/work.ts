@@ -65,10 +65,29 @@ export const workCategories: WorkCategory[] = [
         videoType: 'local',
         videoUrl: '',
         thumbnail: {
+          src: `${assetPrefix}/Screenshot 2026-09-25 at 6.43.39 PM.png`,
           alt: localized('World Duck Family preview', 'ワールド・ダック・ファミリーのプレビュー'),
           type: 'image',
+          objectPosition: 'center 60%',
         },
-        stillFrames: [],
+        stillFrames: [
+          {
+            src: `${assetPrefix}/Screenshot 2026-09-25 at 6.42.59 PM.png`,
+            alt: localized('World Duck Family still frame 1', 'ワールド・ダック・ファミリーのスチル 1'),
+          },
+          {
+            src: `${assetPrefix}/Screenshot 2026-09-25 at 6.43.17 PM.png`,
+            alt: localized('World Duck Family still frame 2', 'ワールド・ダック・ファミリーのスチル 2'),
+          },
+          {
+            src: `${assetPrefix}/Screenshot 2026-09-25 at 6.43.39 PM.png`,
+            alt: localized('World Duck Family still frame 3', 'ワールド・ダック・ファミリーのスチル 3'),
+          },
+          {
+            src: `${assetPrefix}/Screenshot 2026-09-25 at 6.45.01 PM.png`,
+            alt: localized('World Duck Family still frame 4', 'ワールド・ダック・ファミリーのスチル 4'),
+          },
+        ],
       },
       {
         slug: 'aigamo-documentary',

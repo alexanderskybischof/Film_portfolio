@@ -235,7 +235,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ fixedCategorySlug, fixedP
         ))}
       </div>
     </section>
-  ) : (
+  ) : galleryFrames.length ? null : (
     <section className={descriptionClassName}>
       <p>{mediaComingSoon}</p>
     </section>
