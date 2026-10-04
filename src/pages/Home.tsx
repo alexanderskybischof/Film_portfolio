@@ -277,7 +277,7 @@ const Home: React.FC = () => {
                 {copy.linkedinLabel}
               </a>
               <a
-                href="https://www.instagram.com/alexskyfilms/"
+                href="https://www.instagram.com/alexsbki/"
                 target="_blank"
                 rel="noreferrer"
                 className="info-contact-link"
@@ -285,7 +285,7 @@ const Home: React.FC = () => {
                 {copy.instagramLabel}
               </a>
               <a
-                href="https://www.youtube.com/@alexskyfilms"
+                href="https://www.youtube.com/@alexsbki"
                 target="_blank"
                 rel="noreferrer"
                 className="info-contact-link"
