@@ -232,21 +232,21 @@ const Home: React.FC = () => {
   const copy =
     language === 'ja'
       ? {
-          portraitAlt: 'アレクサンダー・スカイのポートレート',
+          portraitAlt: '木下アレックスのポートレート',
           description:
             'カリフォルニア州バークレーと日本の大阪で育ったフリーランスの映像作家。自然、スポーツ、音楽、カルチャーを映像で捉えることに関心があります。ボストン大学で映画・テレビとデータサイエンスを学んでいます。暖かい気候やサーフィン、ヘアカット、ガーデニングが好きです。',
           contactLabel: '連絡先',
-          contactEmail: 'alex@stomii.com',
+          contactEmail: 'skybischof@gmail.com',
           linkedinLabel: 'linkedin',
           instagramLabel: 'instagram',
           youtubeLabel: 'youtube',
         }
       : {
-          portraitAlt: 'Alexander Sky portrait',
+          portraitAlt: 'Alex Bischof portrait',
           description:
             'Freelance Filmmaker raised in Berkeley, CA and Osaka, Japan interested in capturing the outdoors, sports, music and culture. Studying Film/TV and Data Science at Boston University. Some things I like include warm weather, surfing, cutting hair, and gardening.',
           contactLabel: 'Contact',
-          contactEmail: 'alex@stomii.com',
+          contactEmail: 'skybischof@gmail.com',
           linkedinLabel: 'linkedin',
           instagramLabel: 'instagram',
           youtubeLabel: 'youtube',

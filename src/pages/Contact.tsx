@@ -10,7 +10,7 @@ const Contact: React.FC = () => {
     <main className="page page--contact">
       <div className="page-content contact-content">
         <h1>{title}</h1>
-        <p>alex@stomii.com</p>
+        <p>skybischof@gmail.com</p>
         <a
           className="contact-link"
           href="https://www.linkedin.com/in/alexanderskybischof/"

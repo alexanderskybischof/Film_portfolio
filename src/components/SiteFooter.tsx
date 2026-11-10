@@ -8,19 +8,17 @@ const SiteFooter: React.FC = React.memo(() => {
     language === 'ja'
       ? {
           instagram: 'インスタグラム',
-          tiktok: 'TikTok',
           youtube: 'YouTube',
         }
       : {
           instagram: 'Instagram',
-          tiktok: 'TikTok',
           youtube: 'YouTube',
         };
 
   return (
     <footer className="footer">
       <a
-        href="https://www.instagram.com/alexskyfilms/"
+        href="https://www.instagram.com/alexsbki/"
         target="_blank"
         rel="noopener noreferrer"
         className="social-link"
@@ -28,15 +26,7 @@ const SiteFooter: React.FC = React.memo(() => {
         <img src={`${assetPrefix}/igicon.png`} alt={labels.instagram} className="logo-ig" />
       </a>
       <a
-        href="https://www.tiktok.com/@kinnoshitasky"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="social-link"
-      >
-        <img src={`${assetPrefix}/ttlogo.png`} alt={labels.tiktok} className="logo-tiktok" />
-      </a>
-      <a
-        href="https://www.youtube.com/@bykinosky"
+        href="https://www.youtube.com/@alexsbki"
         target="_blank"
         rel="noopener noreferrer"
         className="social-link"

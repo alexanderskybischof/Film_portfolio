@@ -119,8 +119,8 @@ const AppShell: React.FC = () => {
   const navCopy =
   language === 'ja'
     ? {
-        logoAlt: 'アレクサンダー・スカイのロゴ',
-        name: '木下アレックサンダースカイ',
+        logoAlt: '木下アレックスのロゴ',
+        name: '木下アレックス',
         work: '作品',
         stills: 'スチル',
         info: '情報',
@@ -128,8 +128,8 @@ const AppShell: React.FC = () => {
         toggleAria: 'Switch site language to English',
       }
     : {
-        logoAlt: 'Alexander Sky Logo',
-        name: 'ALEXANDER SKY BISCHOF',
+        logoAlt: 'Alex Bischof Logo',
+        name: 'ALEX BISCHOF',
         work: 'WORK',
         stills: 'STILLS',
         info: 'INFO',
