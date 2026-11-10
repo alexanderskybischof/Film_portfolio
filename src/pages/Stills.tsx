@@ -22,10 +22,11 @@ const tagOrder = ['event', 'food', 'doc', 'outdoors', 'indoors', 'commercial'];
 
 const stills: Still[] = [
   {
-    id: 'sydney-harbour-2026-09-15',
-    dateTaken: '2026-09-15',
+    id: 'sydney-harbour-2026-06-12',
+    // Capture date from the photo's EXIF DateTimeOriginal.
+    dateTaken: '2026-06-12',
     src: '/Photo Album 1 - 01.jpg',
-    alt: { en: 'Sydney Harbour, September 15, 2026', ja: 'Sydney Harbour, 2026年9月15日' },
+    alt: { en: 'Sydney Harbour, June 12, 2026', ja: 'Sydney Harbour, 2026年6月12日' },
     tags: ['outdoors'],
   },
   {
@@ -51,6 +52,7 @@ const stills: Still[] = [
   },
   {
     id: 'wbur-speaker',
+    dateTaken: '2026-10-23',
     src: '/DSC06772.jpg',
     alt: { en: 'Speaker smiling with a WBUR microphone', ja: 'WBURのマイクを持って笑顔を見せる登壇者' },
     tags: ['event', 'indoors'],
@@ -58,6 +60,7 @@ const stills: Still[] = [
   },
   {
     id: 'wbur-stage-duet',
+    dateTaken: '2026-09-29',
     src: '/wbur9.29 - 29.jpg',
     alt: { en: 'Two performers smiling together onstage at WBUR', ja: 'WBURのステージで笑顔を見せる二人の出演者' },
     tags: ['event', 'indoors'],
@@ -80,6 +83,7 @@ const stills: Still[] = [
   },
   {
     id: 'wbur-microphone',
+    dateTaken: '2026-10-23',
     src: '/DSC07105.jpg',
     alt: { en: 'Close-up of a speaker holding a WBUR microphone', ja: 'WBURのマイクを持つ登壇者のクローズアップ' },
     tags: ['event', 'indoors'],
@@ -100,6 +104,7 @@ const stills: Still[] = [
   },
   {
     id: 'wbur-novelty-glasses',
+    dateTaken: '2026-10-28',
     src: '/DSC07806.jpg',
     alt: { en: 'Performer wearing oversized novelty glasses at a microphone', ja: '大きなジョーク眼鏡をかけてマイクの前に立つ出演者' },
     tags: ['event', 'indoors'],
@@ -112,10 +117,11 @@ const stills: Still[] = [
     tags: ['outdoors', 'doc'],
   },
   {
-    id: 'classroom-2026-09-03',
-    dateTaken: '2026-09-03',
+    id: 'classroom-2026-09-04',
+    // Capture date from the photo's EXIF DateTimeOriginal.
+    dateTaken: '2026-09-04',
     src: '/Photo Album 1 - 03.jpg',
-    alt: { en: 'Classroom, September 3, 2026', ja: 'Classroom, 2026年9月3日' },
+    alt: { en: 'Classroom, September 4, 2026', ja: 'Classroom, 2026年9月4日' },
     tags: ['event', 'indoors'],
     orientation: 'portrait',
   },
@@ -129,6 +135,7 @@ const stills: Still[] = [
   },
   {
     id: 'cityspace-signing',
+    dateTaken: '2026-11-04',
     src: '/operadraft1 - 33.jpg',
     alt: { en: 'Smiling man signing a book at CitySpace', ja: 'CitySpaceで本にサインしながら笑顔を見せる男性' },
     tags: ['event', 'indoors'],
@@ -168,6 +175,7 @@ const stills: Still[] = [
   },
   {
     id: 'wbur-audience-phone',
+    dateTaken: '2026-10-28',
     src: '/DSC07832.jpg',
     alt: { en: 'Audience member recording a performance on a phone', ja: 'スマートフォンで公演を撮影する観客' },
     tags: ['event', 'indoors'],
@@ -181,6 +189,7 @@ const stills: Still[] = [
   },
   {
     id: 'wbur-stage-embrace',
+    dateTaken: '2026-10-28',
     src: '/DSC07900.jpg',
     alt: { en: 'Two people sharing a joyful embrace onstage', ja: 'ステージで喜びの抱擁を交わす二人' },
     tags: ['event', 'indoors'],
