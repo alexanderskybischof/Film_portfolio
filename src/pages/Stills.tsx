@@ -7,7 +7,7 @@ import { useLanguage } from '../i18n';
 
 type Still = {
   id: string;
-  dateTaken: string;
+  dateTaken?: string;
   src: string;
   alt: {
     en: string;
@@ -50,10 +50,16 @@ const stills: Still[] = [
     tags: ['event', 'indoors'],
   },
   {
-    id: 'kyodai-01',
-    dateTaken: '2026-09-19',
-    src: '/Kyodai1 - 01.jpg',
-    alt: { en: 'Kyodai event, photo 01', ja: 'Kyodaiイベント、写真01' },
+    id: 'wbur-speaker',
+    src: '/DSC06772.jpg',
+    alt: { en: 'Speaker smiling with a WBUR microphone', ja: 'WBURのマイクを持って笑顔を見せる登壇者' },
+    tags: ['event', 'indoors'],
+    orientation: 'portrait',
+  },
+  {
+    id: 'wbur-stage-duet',
+    src: '/wbur9.29 - 29.jpg',
+    alt: { en: 'Two performers smiling together onstage at WBUR', ja: 'WBURのステージで笑顔を見せる二人の出演者' },
     tags: ['event', 'indoors'],
   },
   {
@@ -73,10 +79,9 @@ const stills: Still[] = [
     cropMode: 'zoom',
   },
   {
-    id: 'kyodai-07',
-    dateTaken: '2026-09-19',
-    src: '/Kyodai1 - 07.jpg',
-    alt: { en: 'Kyodai event, photo 07', ja: 'Kyodaiイベント、写真07' },
+    id: 'wbur-microphone',
+    src: '/DSC07105.jpg',
+    alt: { en: 'Close-up of a speaker holding a WBUR microphone', ja: 'WBURのマイクを持つ登壇者のクローズアップ' },
     tags: ['event', 'indoors'],
   },
   {
@@ -94,10 +99,9 @@ const stills: Still[] = [
     tags: ['event', 'indoors'],
   },
   {
-    id: 'kyodai-09',
-    dateTaken: '2026-09-19',
-    src: '/Kyodai1 - 09.jpg',
-    alt: { en: 'Kyodai event, photo 09', ja: 'Kyodaiイベント、写真09' },
+    id: 'wbur-novelty-glasses',
+    src: '/DSC07806.jpg',
+    alt: { en: 'Performer wearing oversized novelty glasses at a microphone', ja: '大きなジョーク眼鏡をかけてマイクの前に立つ出演者' },
     tags: ['event', 'indoors'],
   },
   {
@@ -121,6 +125,13 @@ const stills: Still[] = [
     src: '/Still 2026-08-22 003814_1.19.1.jpg',
     alt: { en: 'Unknown Location, August 22, 2026', ja: 'Unknown Location, 2026年8月22日' },
     tags: ['outdoors'],
+    orientation: 'portrait',
+  },
+  {
+    id: 'cityspace-signing',
+    src: '/operadraft1 - 33.jpg',
+    alt: { en: 'Smiling man signing a book at CitySpace', ja: 'CitySpaceで本にサインしながら笑顔を見せる男性' },
+    tags: ['event', 'indoors'],
     orientation: 'portrait',
   },
   {
@@ -156,11 +167,23 @@ const stills: Still[] = [
     cropMode: 'zoom',
   },
   {
+    id: 'wbur-audience-phone',
+    src: '/DSC07832.jpg',
+    alt: { en: 'Audience member recording a performance on a phone', ja: 'スマートフォンで公演を撮影する観客' },
+    tags: ['event', 'indoors'],
+  },
+  {
     id: 'kuro-sydney-2026-04-19-03',
     dateTaken: '2026-04-19',
     src: '/Kuro3.jpg',
     alt: { en: 'Kuro Bar & Dining, Sydney, April 19, 2026', ja: 'Kuro Bar & Dining, Sydney, 2026年4月19日' },
     tags: ['food', 'indoors', 'commercial'],
+  },
+  {
+    id: 'wbur-stage-embrace',
+    src: '/DSC07900.jpg',
+    alt: { en: 'Two people sharing a joyful embrace onstage', ja: 'ステージで喜びの抱擁を交わす二人' },
+    tags: ['event', 'indoors'],
   },
   {
     id: 'mountain-trail-2026-08-22',
@@ -359,7 +382,7 @@ const Stills: React.FC = () => {
               >
                 <img width={still.orientation === 'portrait' ? 800 : 1600} height={still.orientation === 'portrait' ? 1000 : 1050} src={still.src} alt={still.alt[language]} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable={false} />
                 <span className="stills-tile__meta">
-                  <strong>{formatStillDate(still.dateTaken)}</strong>
+                  <strong>{still.dateTaken ? formatStillDate(still.dateTaken) : null}</strong>
                   <small>{formatStillTags(still)}</small>
                 </span>
               </button>
